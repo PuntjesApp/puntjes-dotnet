@@ -44,11 +44,11 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse?> GetAsWalletPassGetResponseAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse?> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse> GetAsWalletPassGetResponseAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -62,37 +62,6 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
                 { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse>(requestInfo, global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <returns>A <see cref="global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 401 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 403 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 404 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 422 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 429 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
-        [Obsolete("This method is obsolete. Use GetAsWalletPassGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassResponse?> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassResponse> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "401", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "403", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "404", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "422", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "429", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassResponse>(requestInfo, global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -124,32 +93,10 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
         public partial class WalletPassRequestBuilderGetQueryParameters 
         #pragma warning restore CS1591
         {
-            [Obsolete("This property is deprecated, use PlatformAsGetPlatformQueryParameterType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             #pragma warning disable CS1591
             [QueryParameter("platform")]
-            public string? Platform { get; set; }
+            public global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.GetPlatformQueryParameterType? Platform { get; set; }
             #pragma warning restore CS1591
-#nullable restore
-#else
-            #pragma warning disable CS1591
-            [QueryParameter("platform")]
-            public string Platform { get; set; }
-            #pragma warning restore CS1591
-#endif
-            #pragma warning disable CS1591
-            [QueryParameter("platform")]
-            public global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.GetPlatformQueryParameterType? PlatformAsGetPlatformQueryParameterType { get; set; }
-            #pragma warning restore CS1591
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class WalletPassRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

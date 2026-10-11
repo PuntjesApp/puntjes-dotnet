@@ -44,11 +44,11 @@ namespace Puntjes.Sdk.Generated.Statistics
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse?> GetAsStatisticsGetResponseAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse?> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse> GetAsStatisticsGetResponseAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -62,37 +62,6 @@ namespace Puntjes.Sdk.Generated.Statistics
                 { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse>(requestInfo, global::Puntjes.Sdk.Generated.Statistics.StatisticsGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <returns>A <see cref="global::Puntjes.Sdk.Generated.Statistics.StatisticsResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 400 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 401 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 403 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 422 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 429 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
-        [Obsolete("This method is obsolete. Use GetAsStatisticsGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsResponse?> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Puntjes.Sdk.Generated.Statistics.StatisticsResponse> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "400", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "401", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "403", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "422", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "429", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Statistics.StatisticsResponse>(requestInfo, global::Puntjes.Sdk.Generated.Statistics.StatisticsResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -137,36 +106,14 @@ namespace Puntjes.Sdk.Generated.Statistics
             public string Branch { get; set; }
             #pragma warning restore CS1591
 #endif
-            [Obsolete("This property is deprecated, use PeriodAsGetPeriodQueryParameterType instead")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
             #pragma warning disable CS1591
             [QueryParameter("period")]
-            public string? Period { get; set; }
-            #pragma warning restore CS1591
-#nullable restore
-#else
-            #pragma warning disable CS1591
-            [QueryParameter("period")]
-            public string Period { get; set; }
-            #pragma warning restore CS1591
-#endif
-            #pragma warning disable CS1591
-            [QueryParameter("period")]
-            public global::Puntjes.Sdk.Generated.Statistics.GetPeriodQueryParameterType? PeriodAsGetPeriodQueryParameterType { get; set; }
+            public global::Puntjes.Sdk.Generated.Statistics.GetPeriodQueryParameterType? Period { get; set; }
             #pragma warning restore CS1591
             #pragma warning disable CS1591
             [QueryParameter("top_products_limit")]
             public int? TopProductsLimit { get; set; }
             #pragma warning restore CS1591
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class StatisticsRequestBuilderGetRequestConfiguration : RequestConfiguration<global::Puntjes.Sdk.Generated.Statistics.StatisticsRequestBuilder.StatisticsRequestBuilderGetQueryParameters>
-        {
         }
     }
 }

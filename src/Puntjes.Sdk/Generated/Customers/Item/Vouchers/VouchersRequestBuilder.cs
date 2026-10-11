@@ -43,11 +43,11 @@ namespace Puntjes.Sdk.Generated.Customers.Item.Vouchers
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse?> GetAsVouchersGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse> GetAsVouchersGetResponseAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             var requestInfo = ToGetRequestInformation(requestConfiguration);
@@ -60,35 +60,6 @@ namespace Puntjes.Sdk.Generated.Customers.Item.Vouchers
                 { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse>(requestInfo, global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <returns>A <see cref="global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersResponse"/></returns>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 401 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 403 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 404 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 429 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
-        [Obsolete("This method is obsolete. Use GetAsVouchersGetResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersResponse?> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersResponse> GetAsync(Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            var requestInfo = ToGetRequestInformation(requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "401", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "403", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "404", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "429", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersResponse>(requestInfo, global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
@@ -114,14 +85,6 @@ namespace Puntjes.Sdk.Generated.Customers.Item.Vouchers
         public global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Puntjes.Sdk.Generated.Customers.Item.Vouchers.VouchersRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class VouchersRequestBuilderGetRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }

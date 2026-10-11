@@ -12,7 +12,7 @@ docker run --rm -u "$(id -u):$(id -g)" -v "$root:/w" "$kiota" generate \
   --serializer Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory \
   --deserializer Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory \
   --deserializer Microsoft.Kiota.Serialization.Text.TextParseNodeFactory \
-  --clean-output --log-level Warning
+  --exclude-backward-compatible --clean-output --log-level Warning
 docker run --rm -u "$(id -u):$(id -g)" -e HOME=/tmp -e DOTNET_CLI_HOME=/tmp -e DOTNET_NOLOGO=1 \
   -e DOTNET_CLI_TELEMETRY_OPTOUT=1 -v "$root:/w" -w /w "$sdk" \
   dotnet run --project tools/Puntjes.Tools -f net10.0 -- codegen spec/api.json "$out"

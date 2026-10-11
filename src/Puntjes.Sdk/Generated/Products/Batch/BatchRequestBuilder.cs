@@ -46,11 +46,11 @@ namespace Puntjes.Sdk.Generated.Products.Batch
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse?> PostAsBatchPostResponseAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse?> PostAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse> PostAsBatchPostResponseAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse> PostAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
             if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
@@ -66,41 +66,6 @@ namespace Puntjes.Sdk.Generated.Products.Batch
                 { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse>(requestInfo, global::Puntjes.Sdk.Generated.Products.Batch.BatchPostResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
-        }
-        /// <returns>A <see cref="global::Puntjes.Sdk.Generated.Products.Batch.BatchResponse"/></returns>
-        /// <param name="body">The request body</param>
-        /// <param name="cancellationToken">Cancellation token to use when cancelling requests</param>
-        /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 400 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 401 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 403 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 415 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 422 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 429 status code</exception>
-        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
-        [Obsolete("This method is obsolete. Use PostAsBatchPostResponseAsync instead.")]
-#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
-#nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchResponse?> PostAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#nullable restore
-#else
-        public async Task<global::Puntjes.Sdk.Generated.Products.Batch.BatchResponse> PostAsync(global::Puntjes.Sdk.Generated.Products.Batch.BatchPostRequestBody body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
-        {
-#endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
-            var requestInfo = ToPostRequestInformation(body, requestConfiguration);
-            var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
-            {
-                { "400", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "401", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "403", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "415", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "422", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "429", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-                { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
-            };
-            return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Products.Batch.BatchResponse>(requestInfo, global::Puntjes.Sdk.Generated.Products.Batch.BatchResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }
         /// <returns>A <see cref="RequestInformation"/></returns>
         /// <param name="body">The request body</param>
@@ -129,14 +94,6 @@ namespace Puntjes.Sdk.Generated.Products.Batch
         public global::Puntjes.Sdk.Generated.Products.Batch.BatchRequestBuilder WithUrl(string rawUrl)
         {
             return new global::Puntjes.Sdk.Generated.Products.Batch.BatchRequestBuilder(rawUrl, RequestAdapter);
-        }
-        /// <summary>
-        /// Configuration for the request such as headers, query parameters, and middleware options.
-        /// </summary>
-        [Obsolete("This class is deprecated. Please use the generic RequestConfiguration class generated by the generator.")]
-        [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
-        public partial class BatchRequestBuilderPostRequestConfiguration : RequestConfiguration<DefaultQueryParameters>
-        {
         }
     }
 }
