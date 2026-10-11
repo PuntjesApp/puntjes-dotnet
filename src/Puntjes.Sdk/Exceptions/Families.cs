@@ -20,7 +20,14 @@ public sealed class ConflictException(string message, int? status = null, string
 
 /// <summary>HTTP 422 with VALIDATION_ERROR; <see cref="PuntjesException.Details"/> holds the fields. Other 422 codes are domain refusals.</summary>
 public sealed class ValidationException(string message, int? status = null, string? rawCode = null, string? requestId = null, JsonElement? details = null)
-    : PuntjesException(message, status, rawCode, requestId, details);
+    : PuntjesException(message, status, rawCode, requestId, details)
+{
+    /// <summary>The messages for one rejected field, or none.</summary>
+    public IReadOnlyList<string> ErrorsFor(string field) =>
+        Details is { } details && details.TryGetProperty(field, out var messages) && messages.ValueKind == JsonValueKind.Array
+            ? messages.EnumerateArray().Where(m => m.ValueKind == JsonValueKind.String).Select(m => m.GetString()!).ToList()
+            : [];
+}
 
 /// <summary>HTTP 429 with RATE_LIMITED: wait <see cref="RetryAfter"/> and try again.</summary>
 public sealed class RateLimitException(string message, int? status = null, string? rawCode = null, string? requestId = null, JsonElement? details = null, TimeSpan? retryAfter = null)

@@ -48,6 +48,8 @@ public class ErrorMappingTests
         var error = await Assert.ThrowsAsync<ValidationException>(() => fake.Client().Me.GetAsync());
 
         Assert.Equal("bad", error.Details!.Value.GetProperty("field")[0].GetString());
+        Assert.Equal(["bad"], error.ErrorsFor("field"));
+        Assert.Empty(error.ErrorsFor("other"));
     }
 
     [Fact]

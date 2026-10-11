@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  test:
+    name: Build and test on .NET 8 and 10
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Build
+        run: dotnet build --configuration Release
+
+      - name: Test
+        run: dotnet test --configuration Release --no-build
+
+      - name: Pack
+        run: dotnet pack src/Puntjes.Sdk --configuration Release --no-build --output artifacts
+
+  # A hand edit under Generated, or a generator bump with no regeneration, turns this red.
+  generated:
+    name: Generated code matches the spec
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Regenerate from spec/api.json
+        run: sh scripts/generate.sh
+
+      - name: Fail on any difference
+        run: |
+          git status --porcelain -- src/Puntjes.Sdk/Generated
+          test -z "$(git status --porcelain -- src/Puntjes.Sdk/Generated)"
+
+  workflows:
+    name: Workflows
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: actionlint
+        run: docker run --rm -v "$PWD:/repo" -w /repo rhysd/actionlint@sha256:b1934ee5f1c509618f2508e6eb47ee0d3520686341fec936f3b79331f9315667 -color
+
+      - name: zizmor
+        run: pipx run zizmor==1.30.1 --offline .github/workflows
+
+  # The one check the main ruleset requires, so a change to the jobs above never edits the ruleset.
+  ci:
+    name: CI
+    needs: [test, generated, workflows]
+    if: always()
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Every job passed
+        env:
+          TEST: ${{ needs.test.result }}
+          GENERATED: ${{ needs.generated.result }}
+          WORKFLOWS: ${{ needs.workflows.result }}
+        run: test "$TEST" = success && test "$GENERATED" = success && test "$WORKFLOWS" = success

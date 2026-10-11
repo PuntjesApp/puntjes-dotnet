@@ -87,7 +87,7 @@ internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
             return false;
         }
 
-        await response.Content.LoadIntoBufferAsync(cancellationToken);
+        await response.Content.LoadIntoBufferAsync();
 
         return (await ErrorBody.ReadAsync(response, cancellationToken)).Code == ErrorBody.RateLimited;
     }
