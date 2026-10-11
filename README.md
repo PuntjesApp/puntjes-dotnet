@@ -53,7 +53,7 @@ var puntjes = PuntjesClientFactory.Create(id, secret, new PuntjesOptions
 
 - **Authentication.** It asks for a `client_credentials` token on the first call, keeps it until 30 seconds before it
   expires, and asks once more when the API rejects it. Parallel calls share one request for a token.
-- **Retries.** A GET, PUT or DELETE, and a POST that carries an `idempotency_key`, is sent again after a network
+- **Retries.** A GET, PUT, PATCH or DELETE, and a POST that carries an `idempotency_key`, is sent again after a network
   failure, a 5xx answer or `RATE_LIMITED`. It waits 0.5 s, then 1 s, or what `Retry-After` says. A POST without a key
   is never sent twice, so a purchase is never recorded twice. `PLAN_LIMIT_EXCEEDED` is never retried.
 - **Idempotency keys.** `IdempotencyKey.New()` makes one. Send the same key again to repeat a call safely.

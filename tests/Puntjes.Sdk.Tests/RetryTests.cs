@@ -156,18 +156,20 @@ public class RetryTests
     }
 
     [Fact]
-    public async Task PutAndDeleteRetry()
+    public async Task PutPatchAndDeleteRetry()
     {
         var fake = new FakeHandler()
+            .ThenError(HttpStatusCode.ServiceUnavailable, "INTERNAL_ERROR").Then(HttpStatusCode.OK, Ok)
             .ThenError(HttpStatusCode.ServiceUnavailable, "INTERNAL_ERROR").Then(HttpStatusCode.OK, Ok)
             .ThenError(HttpStatusCode.ServiceUnavailable, "INTERNAL_ERROR").Then(() => new HttpResponseMessage(HttpStatusCode.NoContent));
         var client = Client(fake);
 
         await client.Products["p1"].PutAsync(new UpsertProductData { Name = "Bread" });
+        await client.Products["p1"].PatchAsync(new UpdateProductData { Name = "Rye" });
         await client.Products["p1"].DeleteAsync();
 
         Assert.Equal(
-            [HttpMethod.Put, HttpMethod.Put, HttpMethod.Delete, HttpMethod.Delete],
+            [HttpMethod.Put, HttpMethod.Put, HttpMethod.Patch, HttpMethod.Patch, HttpMethod.Delete, HttpMethod.Delete],
             fake.ApiRequests.Select(r => r.Method));
     }
 }

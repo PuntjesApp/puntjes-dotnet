@@ -45,7 +45,7 @@ internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
 
     private static bool IsSafeToRepeat(HttpMethod method, byte[]? body)
     {
-        if (method == HttpMethod.Get || method == HttpMethod.Put || method == HttpMethod.Delete || method == HttpMethod.Head)
+        if (method == HttpMethod.Get || method == HttpMethod.Head || method == HttpMethod.Put || method == HttpMethod.Patch || method == HttpMethod.Delete)
         {
             return true;
         }
