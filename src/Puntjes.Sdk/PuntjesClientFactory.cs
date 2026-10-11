@@ -22,13 +22,16 @@ public static class PuntjesClientFactory
         options ??= new PuntjesOptions();
 
         var host = Host(options.BaseUrl ?? DefaultBaseUrl);
-        var tokens = new TokenSource(clientId, clientSecret, new Uri(host + TokenPath), options.TokenStore ?? new InMemoryTokenStore());
+        var inner = options.InnerHandler ?? new HttpClientHandler();
+        var grants = new HttpMessageInvoker(new RetryHandler(options, repeatEveryMethod: true) { InnerHandler = inner }, disposeHandler: false);
+        var tokens = new TokenSource(clientId, clientSecret, new Uri(host + TokenPath), TokenKey.For(host, clientId, clientSecret), options.TokenStore ?? new InMemoryTokenStore(), grants);
         var pipeline = KiotaClientFactory.ChainHandlersCollectionAndGetFirstLink(
-            options.InnerHandler ?? new HttpClientHandler(),
+            inner,
             new ErrorHandler(),
             new RetryHandler(options),
             new AuthHandler(tokens, new Uri(host + ApiPrefix).AbsolutePath))!;
-        var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: new HttpClient(pipeline))
+        var http = new HttpClient(pipeline) { Timeout = System.Threading.Timeout.InfiniteTimeSpan };
+        var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: http)
         {
             BaseUrl = host + ApiPrefix,
         };

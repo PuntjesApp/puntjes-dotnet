@@ -1,14 +1,15 @@
 using System.Text.Json;
+using Puntjes.Sdk.Exceptions;
 
 namespace Puntjes.Sdk.Http;
 
-internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
+internal sealed class RetryHandler(PuntjesOptions options, bool repeatEveryMethod = false) : DelegatingHandler
 {
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         var body = request.Content is null ? null : await request.Content.ReadAsByteArrayAsync(cancellationToken);
         var headers = request.Content?.Headers.ToList();
-        var retries = IsSafeToRepeat(request.Method, body) ? options.MaxRetries : 0;
+        var retries = repeatEveryMethod || IsSafeToRepeat(request.Method, body) ? options.MaxRetries : 0;
 
         for (var attempt = 0; ; attempt++)
         {
@@ -21,15 +22,29 @@ internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
                 }
             }
 
-            HttpResponseMessage response;
+            using var deadline = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+            deadline.CancelAfter(options.Timeout);
+            HttpResponseMessage? response = null;
             try
             {
-                response = await base.SendAsync(request, cancellationToken);
+                response = await base.SendAsync(request, deadline.Token);
+                await response.Content.LoadIntoBufferAsync().WaitAsync(deadline.Token);
             }
-            catch (HttpRequestException) when (attempt < retries)
+            catch (Exception e) when (IsNetworkFailure(e, cancellationToken))
             {
-                await Wait(attempt, null, cancellationToken);
-                continue;
+                response?.Dispose();
+                if (attempt < retries)
+                {
+                    await Wait(attempt, null, cancellationToken);
+                    continue;
+                }
+
+                throw e switch
+                {
+                    OperationCanceledException => new TransportException($"The Puntjes API did not answer within {options.Timeout.TotalSeconds:0.###} seconds.", e),
+                    HttpRequestException => e,
+                    _ => new HttpRequestException(e.Message, e),
+                };
             }
 
             if (attempt >= retries || !await IsTransient(response, cancellationToken))
@@ -42,6 +57,13 @@ internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
             await Wait(attempt, retryAfter, cancellationToken);
         }
     }
+
+    private static bool IsNetworkFailure(Exception e, CancellationToken caller) => e switch
+    {
+        HttpRequestException or IOException => true,
+        OperationCanceledException => !caller.IsCancellationRequested,
+        _ => false,
+    };
 
     private static bool IsSafeToRepeat(HttpMethod method, byte[]? body)
     {
@@ -82,14 +104,7 @@ internal sealed class RetryHandler(PuntjesOptions options) : DelegatingHandler
             return true;
         }
 
-        if (status != 429)
-        {
-            return false;
-        }
-
-        await response.Content.LoadIntoBufferAsync();
-
-        return (await ErrorBody.ReadAsync(response, cancellationToken)).Code == ErrorBody.RateLimited;
+        return status == 429 && (await ErrorBody.ReadAsync(response, cancellationToken)).Code == ErrorBody.RateLimited;
     }
 
     private Task Wait(int attempt, TimeSpan? retryAfter, CancellationToken cancellationToken)

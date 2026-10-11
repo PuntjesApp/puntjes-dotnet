@@ -6,7 +6,7 @@ using Puntjes.Sdk.Generated;
 
 namespace Puntjes.Sdk.Tests.Support;
 
-public sealed record SentRequest(HttpMethod Method, Uri Uri, string? Body, string? Authorization, string? Accept);
+public sealed record SentRequest(HttpMethod Method, Uri Uri, string? Body, string? Authorization, string? Accept, string? ContentType);
 
 /// <summary>A transport that answers token grants by itself and replays queued answers for every other call.</summary>
 public sealed class FakeHandler : HttpMessageHandler
@@ -24,6 +24,14 @@ public sealed class FakeHandler : HttpMessageHandler
         n => Json(HttpStatusCode.OK, $$"""{"token_type":"Bearer","expires_in":3600,"access_token":"token-{{n}}"}""");
 
     public TimeSpan Latency { get; set; } = TimeSpan.Zero;
+
+    public Func<HttpRequestMessage, HttpResponseMessage>? Respond { get; set; }
+
+    public Func<int, TimeSpan>? ApiLatency { get; set; }
+
+    private int _apiCalls;
+
+    public static HttpResponseMessage Hang() => new(HttpStatusCode.Continue);
 
     public static HttpResponseMessage Json(HttpStatusCode status, string body) =>
         new(status) { Content = new StringContent(body, Encoding.UTF8, "application/json") };
@@ -48,14 +56,14 @@ public sealed class FakeHandler : HttpMessageHandler
 
     public IReadOnlyList<SentRequest> ApiRequests => Requests.ToList();
 
-    public PuntjesClient Client(PuntjesOptions? options = null)
+    public PuntjesClient Client(PuntjesOptions? options = null, string clientId = "client-id")
     {
         options ??= new PuntjesOptions();
         options.BaseUrl ??= "https://shop.test";
         options.InnerHandler = this;
         options.Delay ??= (_, _) => Task.CompletedTask;
 
-        return PuntjesClientFactory.Create("client-id", "client-secret", options);
+        return PuntjesClientFactory.Create(clientId, "client-secret", options);
     }
 
     protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
@@ -72,10 +80,26 @@ public sealed class FakeHandler : HttpMessageHandler
             return GrantAnswer(Interlocked.Increment(ref _grants));
         }
 
-        Requests.Enqueue(new SentRequest(request.Method, request.RequestUri, body, request.Headers.Authorization?.ToString(), request.Headers.Accept.ToString()));
+        var call = Interlocked.Increment(ref _apiCalls);
+        if (ApiLatency is not null)
+        {
+            await Task.Delay(ApiLatency(call), cancellationToken);
+        }
 
-        return _answers.TryDequeue(out var answer)
+        Requests.Enqueue(new SentRequest(request.Method, request.RequestUri, body, request.Headers.Authorization?.ToString(), request.Headers.Accept.ToString(), request.Content?.Headers.ContentType?.MediaType));
+        if (Respond is not null)
+        {
+            return Respond(request);
+        }
+
+        var response = _answers.TryDequeue(out var answer)
             ? answer()
             : throw new InvalidOperationException($"No answer queued for {request.Method} {request.RequestUri}.");
+        if (response.StatusCode == HttpStatusCode.Continue)
+        {
+            await Task.Delay(Timeout.Infinite, cancellationToken);
+        }
+
+        return response;
     }
 }

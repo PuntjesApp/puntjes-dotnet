@@ -4,15 +4,15 @@ using Puntjes.Sdk.Http;
 
 namespace Puntjes.Sdk.Auth;
 
-internal sealed class TokenSource(string clientId, string clientSecret, Uri tokenUrl, ITokenStore store)
+internal sealed class TokenSource(string clientId, string clientSecret, Uri tokenUrl, string key, ITokenStore store, HttpMessageInvoker grants)
 {
     private static readonly TimeSpan Leeway = TimeSpan.FromSeconds(30);
 
     private readonly SemaphoreSlim _grant = new(1, 1);
 
-    public async Task<string> GetAsync(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> send, CancellationToken cancellationToken)
+    public async Task<string> GetAsync(CancellationToken cancellationToken)
     {
-        if (Usable(await store.GetAsync(cancellationToken)) is { } token)
+        if (Usable(await store.GetAsync(key, cancellationToken)) is { } token)
         {
             return token;
         }
@@ -20,13 +20,13 @@ internal sealed class TokenSource(string clientId, string clientSecret, Uri toke
         await _grant.WaitAsync(cancellationToken);
         try
         {
-            if (Usable(await store.GetAsync(cancellationToken)) is { } granted)
+            if (Usable(await store.GetAsync(key, cancellationToken)) is { } granted)
             {
                 return granted;
             }
 
-            var fresh = await GrantAsync(send, cancellationToken);
-            await store.SetAsync(fresh, cancellationToken);
+            var fresh = await GrantAsync(cancellationToken);
+            await store.SetAsync(key, fresh, cancellationToken);
 
             return fresh.Value;
         }
@@ -36,12 +36,26 @@ internal sealed class TokenSource(string clientId, string clientSecret, Uri toke
         }
     }
 
-    public ValueTask ForgetAsync(CancellationToken cancellationToken) => store.ClearAsync(cancellationToken);
+    public async Task ForgetAsync(string rejected, CancellationToken cancellationToken)
+    {
+        await _grant.WaitAsync(cancellationToken);
+        try
+        {
+            if ((await store.GetAsync(key, cancellationToken))?.Value == rejected)
+            {
+                await store.ClearAsync(key, cancellationToken);
+            }
+        }
+        finally
+        {
+            _grant.Release();
+        }
+    }
 
     private static string? Usable(AccessToken? token) =>
         token is not null && token.ExpiresAt - Leeway > DateTimeOffset.UtcNow ? token.Value : null;
 
-    private async Task<AccessToken> GrantAsync(Func<HttpRequestMessage, CancellationToken, Task<HttpResponseMessage>> send, CancellationToken cancellationToken)
+    private async Task<AccessToken> GrantAsync(CancellationToken cancellationToken)
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, tokenUrl)
         {
@@ -55,7 +69,17 @@ internal sealed class TokenSource(string clientId, string clientSecret, Uri toke
         request.Headers.Accept.ParseAdd("application/json");
         var issuedAt = DateTimeOffset.UtcNow;
 
-        using var response = await send(request, cancellationToken);
+        HttpResponseMessage sent;
+        try
+        {
+            sent = await grants.SendAsync(request, cancellationToken);
+        }
+        catch (HttpRequestException e)
+        {
+            throw new TransportException($"The Puntjes token endpoint could not be reached: {e.Message}", e);
+        }
+
+        using var response = sent;
         var text = await response.Content.ReadAsStringAsync(cancellationToken);
         if ((int)response.StatusCode is 400 or 401)
         {

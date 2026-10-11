@@ -14,7 +14,8 @@ internal sealed class AuthHandler(TokenSource tokens, string apiPath) : Delegati
             return await base.SendAsync(request, cancellationToken);
         }
 
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await tokens.GetAsync(base.SendAsync, cancellationToken));
+        var token = await tokens.GetAsync(cancellationToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
         var response = await base.SendAsync(request, cancellationToken);
         if (response.StatusCode != HttpStatusCode.Unauthorized)
         {
@@ -22,8 +23,8 @@ internal sealed class AuthHandler(TokenSource tokens, string apiPath) : Delegati
         }
 
         response.Dispose();
-        await tokens.ForgetAsync(cancellationToken);
-        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await tokens.GetAsync(base.SendAsync, cancellationToken));
+        await tokens.ForgetAsync(token, cancellationToken);
+        request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", await tokens.GetAsync(cancellationToken));
 
         return await base.SendAsync(request, cancellationToken);
     }

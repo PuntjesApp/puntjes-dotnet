@@ -45,6 +45,7 @@ var puntjes = PuntjesClientFactory.Create(id, secret, new PuntjesOptions
 {
     BaseUrl = "https://puntjes.app",  // with or without /api/v1
     MaxRetries = 2,                   // 0 turns retries off
+    Timeout = TimeSpan.FromSeconds(30), // per attempt
     TokenStore = myDistributedStore,  // an ITokenStore; memory by default
 });
 ```
@@ -52,10 +53,13 @@ var puntjes = PuntjesClientFactory.Create(id, secret, new PuntjesOptions
 ## What the SDK does for you
 
 - **Authentication.** It asks for a `client_credentials` token on the first call, keeps it until 30 seconds before it
-  expires, and asks once more when the API rejects it. Parallel calls share one request for a token.
+  expires, and asks once more when the API rejects it. Parallel calls share one request for a token. An
+  `ITokenStore` keeps each token under a key made from the host and the credentials, so one shared store (a
+  Redis cache, for example) can serve the clients of many shops without mixing their tokens.
 - **Retries.** A GET, PUT, PATCH or DELETE, and a POST that carries an `idempotency_key`, is sent again after a network
   failure, a 5xx answer or `RATE_LIMITED`. It waits 0.5 s, then 1 s, or what `Retry-After` says. A POST without a key
-  is never sent twice, so a purchase is never recorded twice. `PLAN_LIMIT_EXCEEDED` is never retried.
+  is never sent twice, so a purchase is never recorded twice. `PLAN_LIMIT_EXCEEDED` is never retried. An attempt that
+  takes longer than `Timeout` counts as a network failure. A failed token request is retried the same way.
 - **Idempotency keys.** `IdempotencyKey.New()` makes one. Send the same key again to repeat a call safely.
 
 ## Errors

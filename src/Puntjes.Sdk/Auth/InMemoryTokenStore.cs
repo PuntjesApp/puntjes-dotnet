@@ -1,21 +1,24 @@
+using System.Collections.Concurrent;
+
 namespace Puntjes.Sdk.Auth;
 
-/// <summary>Keeps the token in this process. The default store.</summary>
+/// <summary>Keeps the tokens in this process. The default store.</summary>
 public sealed class InMemoryTokenStore : ITokenStore
 {
-    private volatile AccessToken? _token;
+    private readonly ConcurrentDictionary<string, AccessToken> _tokens = new();
 
-    public ValueTask<AccessToken?> GetAsync(CancellationToken cancellationToken) => ValueTask.FromResult(_token);
+    public ValueTask<AccessToken?> GetAsync(string key, CancellationToken cancellationToken) =>
+        ValueTask.FromResult(_tokens.TryGetValue(key, out var token) ? token : null);
 
-    public ValueTask SetAsync(AccessToken token, CancellationToken cancellationToken)
+    public ValueTask SetAsync(string key, AccessToken token, CancellationToken cancellationToken)
     {
-        _token = token;
+        _tokens[key] = token;
         return ValueTask.CompletedTask;
     }
 
-    public ValueTask ClearAsync(CancellationToken cancellationToken)
+    public ValueTask ClearAsync(string key, CancellationToken cancellationToken)
     {
-        _token = null;
+        _tokens.TryRemove(key, out _);
         return ValueTask.CompletedTask;
     }
 }

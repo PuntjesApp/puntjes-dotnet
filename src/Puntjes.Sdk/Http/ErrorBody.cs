@@ -23,7 +23,7 @@ internal sealed record ErrorBody(int Status, string Code, string Message, string
         }
         catch (JsonException)
         {
-            return new ErrorBody(status, "NON_JSON_RESPONSE", fallback, null, null, false, excerpt);
+            return new ErrorBody(status, "NON_JSON_RESPONSE", fallback, RequestIdHeader(response), null, false, excerpt);
         }
 
         var error = root.ValueKind == JsonValueKind.Object && root.TryGetProperty("error", out var e) && e.ValueKind == JsonValueKind.Object ? e : default;
@@ -32,7 +32,7 @@ internal sealed record ErrorBody(int Status, string Code, string Message, string
             status,
             Text(error, "code") ?? "UNKNOWN_ERROR",
             Text(error, "message") ?? fallback,
-            Text(error, "request_id"),
+            Text(error, "request_id") ?? RequestIdHeader(response),
             error.ValueKind == JsonValueKind.Object && error.TryGetProperty("details", out var d) && d.ValueKind == JsonValueKind.Object ? d.Clone() : null,
             true,
             excerpt);
@@ -53,6 +53,9 @@ internal sealed record ErrorBody(int Status, string Code, string Message, string
 
         return null;
     }
+
+    private static string? RequestIdHeader(HttpResponseMessage response) =>
+        response.Headers.TryGetValues("X-Request-ID", out var values) ? values.FirstOrDefault() : null;
 
     private static string? Text(JsonElement element, string name) =>
         element.ValueKind == JsonValueKind.Object && element.TryGetProperty(name, out var value) && value.ValueKind == JsonValueKind.String

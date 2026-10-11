@@ -135,4 +135,19 @@ public class ErrorMappingTests
             Assert.Equal("https://shop.test/api/v1/me", fake.ApiRequests.Single().Uri.ToString());
         }
     }
+
+    [Fact]
+    public async Task TheRequestIdFallsBackToTheResponseHeader()
+    {
+        var fake = new FakeHandler().Then(() =>
+        {
+            var response = FakeHandler.Json(HttpStatusCode.NotFound, """{"error":{"code":"CUSTOMER_NOT_FOUND","message":"No such customer.","status":404}}""");
+            response.Headers.Add("X-Request-ID", "req-header");
+            return response;
+        });
+
+        var error = await Assert.ThrowsAsync<NotFoundException>(() => fake.Client().Me.GetAsync());
+
+        Assert.Equal("req-header", error.RequestId);
+    }
 }

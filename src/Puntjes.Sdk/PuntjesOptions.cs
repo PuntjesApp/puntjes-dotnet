@@ -14,8 +14,11 @@ public sealed class PuntjesOptions
     /// <summary>The first wait between retries; it doubles per attempt unless the API sends Retry-After.</summary>
     public TimeSpan RetryBaseDelay { get; set; } = TimeSpan.FromSeconds(0.5);
 
-    /// <summary>Where the access token is kept. Defaults to memory; share one store between clients to share the token.</summary>
+    /// <summary>Where access tokens are kept, per set of credentials. Defaults to memory in this client.</summary>
     public ITokenStore? TokenStore { get; set; }
+
+    /// <summary>How long one attempt may take before it counts as a network failure. Defaults to 30 seconds.</summary>
+    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(30);
 
     /// <summary>The handler that sends the request, for a proxy or a test. Defaults to a new <see cref="HttpClientHandler"/>.</summary>
     public HttpMessageHandler? InnerHandler { get; set; }

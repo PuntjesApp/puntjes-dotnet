@@ -172,4 +172,86 @@ public class RetryTests
             [HttpMethod.Put, HttpMethod.Put, HttpMethod.Patch, HttpMethod.Patch, HttpMethod.Delete, HttpMethod.Delete],
             fake.ApiRequests.Select(r => r.Method));
     }
+
+    [Fact]
+    public async Task ARetriedPostKeepsItsContentType()
+    {
+        var fake = new FakeHandler().ThenError(HttpStatusCode.ServiceUnavailable, "INTERNAL_ERROR").Then(HttpStatusCode.Created, Ok);
+
+        await Record(Client(fake), "key-1");
+
+        Assert.Equal(["application/json", "application/json"], fake.ApiRequests.Select(r => r.ContentType));
+    }
+
+    [Fact]
+    public async Task ARateLimitExceptionSaysHowLongToWait()
+    {
+        var fake = new FakeHandler().Then(() =>
+        {
+            var response = FakeHandler.Error(HttpStatusCode.TooManyRequests, "RATE_LIMITED");
+            response.Headers.Add("Retry-After", "7");
+            return response;
+        });
+
+        var error = await Assert.ThrowsAsync<RateLimitException>(() => Client(fake, maxRetries: 0).Me.GetAsync());
+
+        Assert.Equal(TimeSpan.FromSeconds(7), error.RetryAfter);
+    }
+
+    [Fact]
+    public async Task AGetThatHangsTimesOutAndIsRetried()
+    {
+        var fake = new FakeHandler().Then(FakeHandler.Hang).Then(HttpStatusCode.OK, Ok);
+
+        await fake.Client(new PuntjesOptions { Timeout = TimeSpan.FromMilliseconds(100), Delay = (_, _) => Task.CompletedTask }).Me.GetAsync();
+
+        Assert.Equal(2, fake.ApiRequests.Count);
+    }
+
+    [Fact]
+    public async Task APostWithoutAKeyThatHangsIsATransportException()
+    {
+        var fake = new FakeHandler().Then(FakeHandler.Hang).Then(HttpStatusCode.Created, Ok);
+        var client = fake.Client(new PuntjesOptions { Timeout = TimeSpan.FromMilliseconds(100) });
+
+        var error = await Assert.ThrowsAsync<TransportException>(() => Record(client, null));
+
+        Assert.Contains("did not answer within", error.Message);
+        Assert.Single(fake.ApiRequests);
+    }
+
+    [Fact]
+    public async Task ABodyThatBreaksWhileReadingIsRetried()
+    {
+        var fake = new FakeHandler()
+            .Then(() => new HttpResponseMessage(HttpStatusCode.OK) { Content = new BrokenContent() })
+            .Then(HttpStatusCode.OK, Ok);
+
+        await Client(fake).Me.GetAsync();
+
+        Assert.Equal(2, fake.ApiRequests.Count);
+    }
+
+    [Fact]
+    public async Task ACallerCancellationIsNotATimeout()
+    {
+        var fake = new FakeHandler().Then(FakeHandler.Hang);
+        using var cancel = new CancellationTokenSource(TimeSpan.FromMilliseconds(50));
+
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => fake.Client().Me.GetAsync(cancellationToken: cancel.Token));
+
+        Assert.Single(fake.ApiRequests);
+    }
+
+    private sealed class BrokenContent : HttpContent
+    {
+        protected override Task SerializeToStreamAsync(Stream stream, System.Net.TransportContext? context) =>
+            throw new HttpRequestException("connection reset while reading the body");
+
+        protected override bool TryComputeLength(out long length)
+        {
+            length = 0;
+            return false;
+        }
+    }
 }
