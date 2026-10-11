@@ -7,8 +7,23 @@ updates:
     cooldown:
       default-days: 7
   - package-ecosystem: nuget
-    directory: /
+    directory: /src/Puntjes.Sdk
     schedule:
       interval: weekly
     cooldown:
       default-days: 7
+    commit-message:
+      prefix: fix
+      include: scope
+  - package-ecosystem: nuget
+    directories:
+      - /tests/Puntjes.Sdk.Tests
+      - /tools/Puntjes.Tools
+      - /examples/QuickStart
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: chore
+      include: scope
