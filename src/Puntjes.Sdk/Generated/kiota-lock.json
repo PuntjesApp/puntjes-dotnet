@@ -1,0 +1,32 @@
+{
+  "descriptionHash": "6C8C39015FE0AF8A8598E39F6DDDF283073B30D98A9C31E4967F4895CAAEAAAAA10CBB1091DCF768AE4C10F4BE1BE6DA80AA8E464F678524A496290C5CD10002",
+  "descriptionLocation": "../../../spec/api.json",
+  "lockFileVersion": "1.0.0",
+  "kiotaVersion": "1.35.0",
+  "clientClassName": "PuntjesClient",
+  "typeAccessModifier": "Public",
+  "clientNamespaceName": "Puntjes.Sdk.Generated",
+  "language": "CSharp",
+  "usesBackingStore": false,
+  "excludeBackwardCompatible": false,
+  "includeAdditionalData": true,
+  "disableSSLValidation": false,
+  "serializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory",
+    "Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory"
+  ],
+  "deserializers": [
+    "Microsoft.Kiota.Serialization.Json.JsonParseNodeFactory",
+    "Microsoft.Kiota.Serialization.Text.TextParseNodeFactory"
+  ],
+  "structuredMimeTypes": [
+    "application/json",
+    "text/plain;q=0.9",
+    "application/x-www-form-urlencoded;q=0.2",
+    "multipart/form-data;q=0.1"
+  ],
+  "includePatterns": [],
+  "excludePatterns": [],
+  "disabledValidationRules": [],
+  "allowedExternalOrigins": []
+}
