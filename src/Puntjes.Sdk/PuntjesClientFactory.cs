@@ -1,5 +1,6 @@
 using Microsoft.Kiota.Abstractions.Authentication;
 using Microsoft.Kiota.Http.HttpClientLibrary;
+using Puntjes.Sdk.Auth;
 using Puntjes.Sdk.Generated;
 using Puntjes.Sdk.Http;
 
@@ -12,6 +13,8 @@ public static class PuntjesClientFactory
 
     private const string ApiPrefix = "/api/v1";
 
+    private const string TokenPath = "/oauth/token";
+
     public static PuntjesClient Create(string clientId, string clientSecret, PuntjesOptions? options = null)
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(clientId);
@@ -19,11 +22,12 @@ public static class PuntjesClientFactory
         options ??= new PuntjesOptions();
 
         var host = Host(options.BaseUrl ?? DefaultBaseUrl);
+        var tokens = new TokenSource(clientId, clientSecret, new Uri(host + TokenPath), options.TokenStore ?? new InMemoryTokenStore());
         var pipeline = KiotaClientFactory.ChainHandlersCollectionAndGetFirstLink(
             options.InnerHandler ?? new HttpClientHandler(),
             new ErrorHandler(),
             new RetryHandler(options),
-            new AuthHandler())!;
+            new AuthHandler(tokens, new Uri(host + ApiPrefix).AbsolutePath))!;
         var adapter = new HttpClientRequestAdapter(new AnonymousAuthenticationProvider(), httpClient: new HttpClient(pipeline))
         {
             BaseUrl = host + ApiPrefix,
