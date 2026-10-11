@@ -6,7 +6,7 @@
       "package-name": "Puntjes.Sdk",
       "include-component-in-tag": false,
       "changelog-path": "CHANGELOG.md",
-      "release-as": "1.0.0",
+      "initial-version": "1.0.0",
       "extra-files": [
         {
           "type": "xml",

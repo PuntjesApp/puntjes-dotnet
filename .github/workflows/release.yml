@@ -72,6 +72,13 @@ jobs:
         id: nuget
         with:
           user: ${{ vars.NUGET_USER }}
+      - name: Say what nuget.org needs
+        if: failure() && steps.nuget.outcome == 'failure'
+        env:
+          NUGET_USER: ${{ vars.NUGET_USER }}
+        run: |
+          echo "::error::nuget.org refused the login for '${NUGET_USER}'. The account needs a trusted publishing policy for PuntjesApp/puntjes-dotnet, workflow release.yml (README, nuget.org trusted publishing), and the variable NUGET_USER must name it. Then re-run this job."
+          exit 1
       - name: Push
         env:
           NUGET_API_KEY: ${{ steps.nuget.outputs.NUGET_API_KEY }}
