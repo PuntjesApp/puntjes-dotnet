@@ -13,8 +13,10 @@ switch (args)
         }
 
         return 0;
+    case ["dispatch-plan", .. var rest]:
+        return DispatchPlan.Run(rest, Console.Out, Console.Error);
     default:
-        Console.Error.WriteLine("Usage: codegen <spec> <outDir>");
+        Console.Error.WriteLine("Usage: codegen <spec> <outDir> | dispatch-plan <tag> <level> <url> <source> [<open>]");
 
         return 1;
 }
