@@ -1,0 +1,5 @@
+{"paths":{
+  "/a":{"get":{"x-error-codes":[{"code":"CUSTOMER_NOT_FOUND","status":404}],"responses":{"429":{"$ref":"#/components/responses/Error429"}}}},
+  "/b/{id}":{"post":{"security":[],"x-error-codes":[{"code":"CUSTOMER_NOT_FOUND","status":404}]}},
+  "/c":{"get":{"security":[{"oauth2":[]}]}}},
+ "components":{"responses":{"Error429":{"x-error-codes":[{"code":"RATE_LIMITED","status":429},{"code":"PLAN_LIMIT_EXCEEDED","status":429}]}}}}
