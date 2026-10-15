@@ -6,7 +6,7 @@ kiota="mcr.microsoft.com/openapi/kiota@sha256:ec6d326a8f98a067106729903928535906
 sdk="mcr.microsoft.com/dotnet/sdk@sha256:548d93f8a18a1acbe6cc127bc4f47281430d34a9e35c18afa80a8d6741c2adc3"
 out=src/Puntjes.Sdk/Generated
 rm -rf "${root:?}/$out"
-docker run --rm -u "$(id -u):$(id -g)" -v "$root:/w" "$kiota" generate \
+docker run --rm -u "$(id -u):$(id -g)" -e KIOTA_OFFLINE_ENABLED=true -v "$root:/w" "$kiota" generate \
   -l CSharp -d /w/spec/api.json -o "/w/$out" -n Puntjes.Sdk.Generated -c PuntjesClient \
   --serializer Microsoft.Kiota.Serialization.Json.JsonSerializationWriterFactory \
   --serializer Microsoft.Kiota.Serialization.Text.TextSerializationWriterFactory \
