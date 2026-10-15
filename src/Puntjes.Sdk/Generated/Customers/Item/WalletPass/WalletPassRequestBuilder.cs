@@ -42,6 +42,7 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 422 status code</exception>
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 429 status code</exception>
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
+        /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 503 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public async Task<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse?> GetAsync(Action<RequestConfiguration<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassRequestBuilder.WalletPassRequestBuilderGetQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
@@ -60,6 +61,7 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
                 { "422", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
                 { "429", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
                 { "500", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
+                { "503", global::Puntjes.Sdk.Generated.Models.ErrorResponse.CreateFromDiscriminatorValue },
             };
             return await RequestAdapter.SendAsync<global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse>(requestInfo, global::Puntjes.Sdk.Generated.Customers.Item.WalletPass.WalletPassGetResponse.CreateFromDiscriminatorValue, errorMapping, cancellationToken).ConfigureAwait(false);
         }

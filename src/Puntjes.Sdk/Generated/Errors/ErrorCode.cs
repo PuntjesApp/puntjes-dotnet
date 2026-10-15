@@ -5,6 +5,7 @@ namespace Puntjes.Sdk.Generated.Errors;
 /// <summary>Every error code the API documents, generated from the x-error-codes of spec/api.json. Do not edit.</summary>
 public enum ErrorCode
 {
+    AppleWalletUnavailable,
     BatchTooLarge,
     BranchInactive,
     BranchNotFound,
@@ -63,6 +64,7 @@ public static class ErrorCodes
 {
     public static string ToWire(this ErrorCode code) => code switch
     {
+        ErrorCode.AppleWalletUnavailable => "APPLE_WALLET_UNAVAILABLE",
         ErrorCode.BatchTooLarge => "BATCH_TOO_LARGE",
         ErrorCode.BranchInactive => "BRANCH_INACTIVE",
         ErrorCode.BranchNotFound => "BRANCH_NOT_FOUND",
@@ -119,6 +121,7 @@ public static class ErrorCodes
 
     public static int Status(this ErrorCode code) => code switch
     {
+        ErrorCode.AppleWalletUnavailable => 503,
         ErrorCode.BatchTooLarge => 422,
         ErrorCode.BranchInactive => 422,
         ErrorCode.BranchNotFound => 422,
@@ -177,6 +180,7 @@ public static class ErrorCodes
     {
         ErrorCode? found = wire switch
         {
+            "APPLE_WALLET_UNAVAILABLE" => ErrorCode.AppleWalletUnavailable,
             "BATCH_TOO_LARGE" => ErrorCode.BatchTooLarge,
             "BRANCH_INACTIVE" => ErrorCode.BranchInactive,
             "BRANCH_NOT_FOUND" => ErrorCode.BranchNotFound,
