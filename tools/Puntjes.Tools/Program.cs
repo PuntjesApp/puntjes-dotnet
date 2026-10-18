@@ -10,6 +10,7 @@ switch (args)
             Directory.CreateDirectory(Path.Combine(outDir, "Security"));
             File.WriteAllText(Path.Combine(outDir, "Errors", "ErrorCode.cs"), SpecCodegen.RenderErrorCode(SpecCodegen.ErrorCodes(spec)));
             File.WriteAllText(Path.Combine(outDir, "Security", "PublicOperations.cs"), SpecCodegen.RenderPublicOperations(SpecCodegen.PublicOperations(spec)));
+            OptionalBodies.Apply(spec, outDir);
         }
 
         return 0;

@@ -54,14 +54,13 @@ namespace Puntjes.Sdk.Generated.Customers.ByExternalId.Item
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPatchResponse?> PatchAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPatchResponse?> PatchAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData? body = default, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPatchResponse> PatchAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPatchResponse> PatchAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body = default, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPatchRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
@@ -92,14 +91,13 @@ namespace Puntjes.Sdk.Generated.Customers.ByExternalId.Item
         /// <exception cref="global::Puntjes.Sdk.Generated.Models.ErrorResponse">When receiving a 500 status code</exception>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPutResponse?> PutAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPutResponse?> PutAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData? body = default, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #nullable restore
 #else
-        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPutResponse> PutAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
+        public async Task<global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.WithExternalPutResponse> PutAsync(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body = default, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default, CancellationToken cancellationToken = default)
         {
 #endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = ToPutRequestInformation(body, requestConfiguration);
             var errorMapping = new Dictionary<string, ParsableFactory<IParsable>>
             {
@@ -120,18 +118,17 @@ namespace Puntjes.Sdk.Generated.Customers.ByExternalId.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPatchRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData? body = default, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPatchRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPatchRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body = default, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PATCH, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
-            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
+            if(body != null) requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }
         /// <returns>A <see cref="RequestInformation"/></returns>
@@ -139,18 +136,17 @@ namespace Puntjes.Sdk.Generated.Customers.ByExternalId.Item
         /// <param name="requestConfiguration">Configuration for the request such as headers, query parameters, and middleware options.</param>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
-        public RequestInformation ToPutRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData? body = default, Action<RequestConfiguration<DefaultQueryParameters>>? requestConfiguration = default)
         {
 #nullable restore
 #else
-        public RequestInformation ToPutRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
+        public RequestInformation ToPutRequestInformation(global::Puntjes.Sdk.Generated.Models.UpdateCustomerData body = default, Action<RequestConfiguration<DefaultQueryParameters>> requestConfiguration = default)
         {
 #endif
-            if(ReferenceEquals(body, null)) throw new ArgumentNullException(nameof(body));
             var requestInfo = new RequestInformation(Method.PUT, UrlTemplate, PathParameters);
             requestInfo.Configure(requestConfiguration);
             requestInfo.Headers.TryAdd("Accept", "application/json");
-            requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
+            if(body != null) requestInfo.SetContentFromParsable(RequestAdapter, "application/json", body);
             return requestInfo;
         }
         /// <summary>
