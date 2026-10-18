@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.2.0...v2.2.1) (2026-10-18)
+
+
+### Bug Fixes
+
+* make an optional request body optional again ([#16](https://github.com/PuntjesApp/puntjes-dotnet/issues/16)) ([1ce9653](https://github.com/PuntjesApp/puntjes-dotnet/commit/1ce965312ea0efe895c66f0025fd68e822ef1d29))
+
 ## [2.2.0](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.1.0...v2.2.0) (2026-10-18)
 
 
