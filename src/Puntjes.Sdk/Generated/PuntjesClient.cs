@@ -4,6 +4,7 @@ using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions;
 using Microsoft.Kiota.Serialization.Json;
 using Microsoft.Kiota.Serialization.Text;
+using Puntjes.Sdk.Generated.Branches;
 using Puntjes.Sdk.Generated.Campaigns;
 using Puntjes.Sdk.Generated.Customers;
 using Puntjes.Sdk.Generated.Health;
@@ -26,6 +27,11 @@ namespace Puntjes.Sdk.Generated
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class PuntjesClient : BaseRequestBuilder
     {
+        /// <summary>The branches property</summary>
+        public global::Puntjes.Sdk.Generated.Branches.BranchesRequestBuilder Branches
+        {
+            get => new global::Puntjes.Sdk.Generated.Branches.BranchesRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The campaigns property</summary>
         public global::Puntjes.Sdk.Generated.Campaigns.CampaignsRequestBuilder Campaigns
         {

@@ -14,6 +14,14 @@ namespace Puntjes.Sdk.Generated.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>The branches the reward has now; null means every branch.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>? Branches { get; set; }
+#nullable restore
+#else
+        public List<global::Puntjes.Sdk.Generated.Models.BranchReferenceData> Branches { get; set; }
+#endif
         /// <summary>The confirmation_code property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -83,6 +91,7 @@ namespace Puntjes.Sdk.Generated.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "branches", n => { Branches = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>(global::Puntjes.Sdk.Generated.Models.BranchReferenceData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "confirmation_code", n => { ConfirmationCode = n.GetStringValue(); } },
                 { "points_deducted", n => { PointsDeducted = n.GetIntValue(); } },
                 { "redemption_id", n => { RedemptionId = n.GetIntValue(); } },
@@ -99,6 +108,7 @@ namespace Puntjes.Sdk.Generated.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>("branches", Branches);
             writer.WriteStringValue("confirmation_code", ConfirmationCode);
             writer.WriteIntValue("points_deducted", PointsDeducted);
             writer.WriteIntValue("redemption_id", RedemptionId);

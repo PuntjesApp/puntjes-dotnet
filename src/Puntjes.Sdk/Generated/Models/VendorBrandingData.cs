@@ -30,6 +30,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string BrandColorPrimary { get; set; }
 #endif
+        /// <summary>The default_branch property</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public global::Puntjes.Sdk.Generated.Models.BranchReferenceData? DefaultBranch { get; set; }
+#nullable restore
+#else
+        public global::Puntjes.Sdk.Generated.Models.BranchReferenceData DefaultBranch { get; set; }
+#endif
         /// <summary>The display_name property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -73,6 +81,7 @@ namespace Puntjes.Sdk.Generated.Models
             {
                 { "brand_color_accent", n => { BrandColorAccent = n.GetStringValue(); } },
                 { "brand_color_primary", n => { BrandColorPrimary = n.GetStringValue(); } },
+                { "default_branch", n => { DefaultBranch = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>(global::Puntjes.Sdk.Generated.Models.BranchReferenceData.CreateFromDiscriminatorValue); } },
                 { "display_name", n => { DisplayName = n.GetStringValue(); } },
                 { "logo_url", n => { LogoUrl = n.GetStringValue(); } },
             };
@@ -86,6 +95,7 @@ namespace Puntjes.Sdk.Generated.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteStringValue("brand_color_accent", BrandColorAccent);
             writer.WriteStringValue("brand_color_primary", BrandColorPrimary);
+            writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>("default_branch", DefaultBranch);
             writer.WriteStringValue("display_name", DisplayName);
             writer.WriteStringValue("logo_url", LogoUrl);
             writer.WriteAdditionalData(AdditionalData);
