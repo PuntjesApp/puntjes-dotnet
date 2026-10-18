@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.1.0...v2.2.0) (2026-10-18)
+
+
+### Features
+
+* regenerate from puntjes-openapi v2.2.0 ([#13](https://github.com/PuntjesApp/puntjes-dotnet/issues/13)) ([dd6b184](https://github.com/PuntjesApp/puntjes-dotnet/commit/dd6b184be27bc2c49a757b55835ccba89e7f9fc9))
+
 ## [2.1.0](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.0.0...v2.1.0) (2026-10-15)
 
 
