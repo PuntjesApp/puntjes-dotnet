@@ -2,6 +2,7 @@ name: CI
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, edited] # edited: retitling a PR to feat!: runs the API check again
   push:
     branches: [main]
 
@@ -55,6 +56,31 @@ jobs:
           git status --porcelain -- src/Puntjes.Sdk/Generated
           test -z "$(git status --porcelain -- src/Puntjes.Sdk/Generated)"
 
+  # A removed or changed public member fails unless the PR title (or a commit on main since the last release) says
+  # feat! or BREAKING CHANGE. The regenerate PR title follows the spec level, so a generator break fails here.
+  api-compat:
+    name: Public API matches the latest release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Compare with the latest nuget.org release
+        env:
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+          HEAD_BASE: ${{ github.event.pull_request.base.sha || github.sha }}
+        run: sh scripts/api-compat.sh
+
   workflows:
     name: Workflows
     runs-on: ubuntu-latest
@@ -73,7 +99,7 @@ jobs:
   # The one check the main ruleset requires, so a change to the jobs above never edits the ruleset.
   ci:
     name: CI
-    needs: [test, generated, workflows]
+    needs: [test, generated, api-compat, workflows]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 5
@@ -82,5 +108,6 @@ jobs:
         env:
           TEST: ${{ needs.test.result }}
           GENERATED: ${{ needs.generated.result }}
+          API_COMPAT: ${{ needs.api-compat.result }}
           WORKFLOWS: ${{ needs.workflows.result }}
-        run: test "$TEST" = success && test "$GENERATED" = success && test "$WORKFLOWS" = success
+        run: test "$TEST" = success && test "$GENERATED" = success && test "$API_COMPAT" = success && test "$WORKFLOWS" = success
