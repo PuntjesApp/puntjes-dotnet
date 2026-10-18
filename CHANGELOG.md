@@ -10,6 +10,7 @@
   after: `puntjes.Redemptions[code].Verify.PostAsync(new VerifyRedemptionData())`
   The body is optional in the API, so an empty `VerifyRedemptionData` sends the same request as before.
   `ToPostRequestInformation()` on the same builder takes the body in the same way.
+  The next patch release makes the body optional again, so `PostAsync()` works as before.
 
 ### Features
 
