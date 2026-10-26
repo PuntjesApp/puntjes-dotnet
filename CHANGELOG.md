@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.2](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.2.1...v2.2.2) (2026-10-26)
+
+
+### Bug Fixes
+
+* keep the number of each ErrorCode across releases ([#22](https://github.com/PuntjesApp/puntjes-dotnet/issues/22)) ([07d8901](https://github.com/PuntjesApp/puntjes-dotnet/commit/07d8901e551e280225efca78c5635d477ff491f7))
+
 ## [2.2.1](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.2.0...v2.2.1) (2026-10-18)
 
 
