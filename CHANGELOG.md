@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.3](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.2.2...v2.2.3) (2026-10-26)
+
+
+### Bug Fixes
+
+* keep the number of each model enum member across releases ([#24](https://github.com/PuntjesApp/puntjes-dotnet/issues/24)) ([016e67b](https://github.com/PuntjesApp/puntjes-dotnet/commit/016e67b797e3e412062205dcb5d5dd12ad5e7a33))
+
 ## [2.2.2](https://github.com/PuntjesApp/puntjes-dotnet/compare/v2.2.1...v2.2.2) (2026-10-26)
 
 
