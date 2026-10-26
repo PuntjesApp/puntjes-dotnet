@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <RootNamespace>Puntjes.Sdk</RootNamespace>
-    <Version>2.2.1</Version>
+    <Version>2.2.2</Version>
     <PackageId>Puntjes.Sdk</PackageId>
     <Authors>Puntjes</Authors>
     <Description>The official .NET client for the Puntjes loyalty API: customers, transactions, rewards, vouchers and campaigns.</Description>
