@@ -22,6 +22,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public List<int?> BranchIds { get; set; }
 #endif
+        /// <summary>The groups this campaign is for. Absent or empty means everyone.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<int?>? CustomerGroupIds { get; set; }
+#nullable restore
+#else
+        public List<int?> CustomerGroupIds { get; set; }
+#endif
         /// <summary>Which purchase triggers the gift. 3 means every third one.</summary>
         public int? EveryN { get; set; }
         /// <summary>What the customer gets. Its `type` says which shape this is.</summary>
@@ -62,6 +70,7 @@ namespace Puntjes.Sdk.Generated.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "branch_ids", n => { BranchIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
+                { "customer_group_ids", n => { CustomerGroupIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
                 { "every_n", n => { EveryN = n.GetIntValue(); } },
                 { "gift", n => { Gift = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.NthPurchaseCampaignConfigData.NthPurchaseCampaignConfigData_gift>(global::Puntjes.Sdk.Generated.Models.NthPurchaseCampaignConfigData.NthPurchaseCampaignConfigData_gift.CreateFromDiscriminatorValue); } },
                 { "min_amount", n => { MinAmount = n.GetIntValue(); } },
@@ -76,6 +85,7 @@ namespace Puntjes.Sdk.Generated.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<int?>("branch_ids", BranchIds);
+            writer.WriteCollectionOfPrimitiveValues<int?>("customer_group_ids", CustomerGroupIds);
             writer.WriteIntValue("every_n", EveryN);
             writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.NthPurchaseCampaignConfigData.NthPurchaseCampaignConfigData_gift>("gift", Gift);
             writer.WriteIntValue("min_amount", MinAmount);

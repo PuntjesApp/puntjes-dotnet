@@ -22,6 +22,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public List<int?> BranchIds { get; set; }
 #endif
+        /// <summary>The groups this campaign is for. Absent or empty means everyone.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<int?>? CustomerGroupIds { get; set; }
+#nullable restore
+#else
+        public List<int?> CustomerGroupIds { get; set; }
+#endif
         /// <summary>What the customer gets. Its `type` says which shape this is.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -60,6 +68,7 @@ namespace Puntjes.Sdk.Generated.Models
             return new Dictionary<string, Action<IParseNode>>
             {
                 { "branch_ids", n => { BranchIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
+                { "customer_group_ids", n => { CustomerGroupIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
                 { "gift", n => { Gift = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.WinBackCampaignConfigData.WinBackCampaignConfigData_gift>(global::Puntjes.Sdk.Generated.Models.WinBackCampaignConfigData.WinBackCampaignConfigData_gift.CreateFromDiscriminatorValue); } },
                 { "months", n => { Months = n.GetIntValue(); } },
                 { "type", n => { Type = n.GetEnumValue<global::Puntjes.Sdk.Generated.Models.WinBackCampaignConfigData_type>(); } },
@@ -73,6 +82,7 @@ namespace Puntjes.Sdk.Generated.Models
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteCollectionOfPrimitiveValues<int?>("branch_ids", BranchIds);
+            writer.WriteCollectionOfPrimitiveValues<int?>("customer_group_ids", CustomerGroupIds);
             writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.WinBackCampaignConfigData.WinBackCampaignConfigData_gift>("gift", Gift);
             writer.WriteIntValue("months", Months);
             writer.WriteEnumValue<global::Puntjes.Sdk.Generated.Models.WinBackCampaignConfigData_type>("type", Type);

@@ -78,6 +78,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string FirstName { get; set; }
 #endif
+        /// <summary>The customer&apos;s groups, sorted by name, then by external_id.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>? Groups { get; set; }
+#nullable restore
+#else
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData> Groups { get; set; }
+#endif
         /// <summary>The id property</summary>
         public int? Id { get; set; }
         /// <summary>The identifiers property</summary>
@@ -227,6 +235,7 @@ namespace Puntjes.Sdk.Generated.Models
                 { "email", n => { Email = n.GetStringValue(); } },
                 { "external_id", n => { ExternalId = n.GetStringValue(); } },
                 { "first_name", n => { FirstName = n.GetStringValue(); } },
+                { "groups", n => { Groups = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>(global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "id", n => { Id = n.GetIntValue(); } },
                 { "identifiers", n => { Identifiers = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerIdentifierData>(global::Puntjes.Sdk.Generated.Models.CustomerIdentifierData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "last_name", n => { LastName = n.GetStringValue(); } },
@@ -260,6 +269,7 @@ namespace Puntjes.Sdk.Generated.Models
             writer.WriteStringValue("email", Email);
             writer.WriteStringValue("external_id", ExternalId);
             writer.WriteStringValue("first_name", FirstName);
+            writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>("groups", Groups);
             writer.WriteIntValue("id", Id);
             writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerIdentifierData>("identifiers", Identifiers);
             writer.WriteStringValue("last_name", LastName);

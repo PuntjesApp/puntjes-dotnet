@@ -14,9 +14,11 @@ namespace Puntjes.Sdk.Generated.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
+        /// <summary>Only true when `status` is `valid` and the customer is a member of none of its customer groups.</summary>
+        public bool? BlockedByGroup { get; set; }
         /// <summary>The campaign_id property</summary>
         public int? CampaignId { get; set; }
-        /// <summary>When the bon was spent, or null while it is not.</summary>
+        /// <summary>When the voucher was spent, or null while it is not.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ConsumedAt { get; set; }
@@ -24,7 +26,15 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string ConsumedAt { get; set; }
 #endif
-        /// <summary>How much comes off, for a discount bon. Its `type` says which shape this is.</summary>
+        /// <summary>Groups that may spend it; empty means every customer.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>? CustomerGroups { get; set; }
+#nullable restore
+#else
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData> CustomerGroups { get; set; }
+#endif
+        /// <summary>How much comes off, for a discount voucher. Its `type` says which shape this is.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Puntjes.Sdk.Generated.Models.CampaignVoucherLookupData.CampaignVoucherLookupData_discount? Discount { get; set; }
@@ -40,7 +50,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string Kind { get; set; }
 #endif
-        /// <summary>What to hand over, for a free-product bon.</summary>
+        /// <summary>What to hand over, for a free-product voucher.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData>? Products { get; set; }
@@ -97,8 +107,10 @@ namespace Puntjes.Sdk.Generated.Models
         {
             return new Dictionary<string, Action<IParseNode>>
             {
+                { "blocked_by_group", n => { BlockedByGroup = n.GetBoolValue(); } },
                 { "campaign_id", n => { CampaignId = n.GetIntValue(); } },
                 { "consumed_at", n => { ConsumedAt = n.GetStringValue(); } },
+                { "customer_groups", n => { CustomerGroups = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>(global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "discount", n => { Discount = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.CampaignVoucherLookupData.CampaignVoucherLookupData_discount>(global::Puntjes.Sdk.Generated.Models.CampaignVoucherLookupData.CampaignVoucherLookupData_discount.CreateFromDiscriminatorValue); } },
                 { "kind", n => { Kind = n.GetStringValue(); } },
                 { "products", n => { Products = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData>(global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData.CreateFromDiscriminatorValue)?.AsList(); } },
@@ -114,8 +126,10 @@ namespace Puntjes.Sdk.Generated.Models
         public virtual void Serialize(ISerializationWriter writer)
         {
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
+            writer.WriteBoolValue("blocked_by_group", BlockedByGroup);
             writer.WriteIntValue("campaign_id", CampaignId);
             writer.WriteStringValue("consumed_at", ConsumedAt);
+            writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>("customer_groups", CustomerGroups);
             writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.CampaignVoucherLookupData.CampaignVoucherLookupData_discount>("discount", Discount);
             writer.WriteStringValue("kind", Kind);
             writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData>("products", Products);
