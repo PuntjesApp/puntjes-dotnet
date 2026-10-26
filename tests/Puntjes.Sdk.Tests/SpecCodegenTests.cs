@@ -49,12 +49,12 @@ public class SpecCodegenTests
     [Fact]
     public void ARemovedCodeKeepsItsNumberSoNoOtherCodeTakesIt()
     {
-        var numbers = new Dictionary<string, int> { ["CUSTOMER_NOT_FOUND"] = 0, ["GONE"] = 1, ["RATE_LIMITED"] = 2 };
+        var numbers = new Dictionary<string, int> { ["CUSTOMER_NOT_FOUND"] = 0, ["GONE"] = 5, ["RATE_LIMITED"] = 2 };
 
         var numbered = SpecCodegen.Numbered(SpecCodegen.ErrorCodes(Fixture()), numbers);
 
-        Assert.Equal(3, numbered.Single(c => c.Code == "PLAN_LIMIT_EXCEEDED").Number);
-        Assert.Equal(1, numbers["GONE"]);
+        Assert.Equal(6, numbered.Single(c => c.Code == "PLAN_LIMIT_EXCEEDED").Number);
+        Assert.Equal(5, numbers["GONE"]);
     }
 
     [Fact]
