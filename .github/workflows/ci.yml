@@ -53,8 +53,8 @@ jobs:
 
       - name: Fail on any difference
         run: |
-          git status --porcelain -- src/Puntjes.Sdk/Generated
-          test -z "$(git status --porcelain -- src/Puntjes.Sdk/Generated)"
+          git status --porcelain -- src/Puntjes.Sdk/Generated spec/error-code-numbers.json
+          test -z "$(git status --porcelain -- src/Puntjes.Sdk/Generated spec/error-code-numbers.json)"
 
   # A removed or changed public member fails unless the PR title (or a commit on main since the last release) says
   # feat! or BREAKING CHANGE. The regenerate PR title follows the spec level, so a generator break fails here.

@@ -17,6 +17,41 @@ public static class SpecCodegen
         return codes.Select(pair => (pair.Key, pair.Value)).ToList();
     }
 
+    /// <summary>Gives each code its number from <paramref name="numbers"/>, and a new code the next free number, which it adds.
+    /// A number is never given twice, so a compiled ErrorCode keeps its meaning in a later release.</summary>
+    public static IReadOnlyList<(string Code, int Status, int Number)> Numbered(
+        IReadOnlyList<(string Code, int Status)> codes, IDictionary<string, int> numbers)
+    {
+        var next = numbers.Count == 0 ? 0 : numbers.Values.Max() + 1;
+
+        return codes
+            .Select(c => (c.Code, c.Status, numbers.TryGetValue(c.Code, out var number) ? number : numbers[c.Code] = next++))
+            .ToList();
+    }
+
+    public static Dictionary<string, int> ParseNumbers(string json)
+    {
+        using var document = JsonDocument.Parse(json);
+        var numbers = new Dictionary<string, int>(StringComparer.Ordinal);
+        var owners = new Dictionary<int, string>();
+        foreach (var entry in document.RootElement.EnumerateObject())
+        {
+            var number = entry.Value.GetInt32();
+            if (owners.TryGetValue(number, out var owner))
+            {
+                throw new InvalidOperationException($"{owner} and {entry.Name} both have the number {number}.");
+            }
+
+            owners[number] = entry.Name;
+            numbers[entry.Name] = number;
+        }
+
+        return numbers;
+    }
+
+    public static string RenderNumbers(IDictionary<string, int> numbers) =>
+        "{\n" + string.Join(",\n", numbers.OrderBy(n => n.Value).Select(n => $"  \"{n.Key}\": {n.Value}")) + "\n}\n";
+
     public static IReadOnlyList<string> PublicOperations(JsonDocument spec)
     {
         var operations = new List<string>();
@@ -43,9 +78,9 @@ public static class SpecCodegen
         return operations;
     }
 
-    public static string RenderErrorCode(IReadOnlyList<(string Code, int Status)> codes)
+    public static string RenderErrorCode(IReadOnlyList<(string Code, int Status, int Number)> codes)
     {
-        var members = Lines(codes, c => $"    {Member(c.Code)},");
+        var members = Lines(codes, c => $"    {Member(c.Code)} = {c.Number},");
         var wire = Lines(codes, c => $"        ErrorCode.{Member(c.Code)} => \"{c.Code}\",");
         var statuses = Lines(codes, c => $"        ErrorCode.{Member(c.Code)} => {c.Status},");
         var parse = Lines(codes, c => $"            \"{c.Code}\" => ErrorCode.{Member(c.Code)},");
@@ -55,7 +90,8 @@ public static class SpecCodegen
             #nullable enable
             namespace Puntjes.Sdk.Generated.Errors;
 
-            /// <summary>Every error code the API documents, generated from the x-error-codes of spec/api.json. Do not edit.</summary>
+            /// <summary>Every error code the API documents, generated from the x-error-codes of spec/api.json. Do not edit.
+            /// Each number comes from spec/error-code-numbers.json and never changes in a later release.</summary>
             public enum ErrorCode
             {
             {{members}}
