@@ -95,6 +95,8 @@ catch (PuntjesException e) when (e.ErrorCode == ErrorCode.InsufficientBalance)
 ```
 
 `ErrorCode` is null for a code that is newer than your SDK; `RawCode` always holds the code as the API sent it.
+Each `ErrorCode` member keeps its number in every later release, so an app built against an older SDK reads
+the same code the same way.
 
 ## Pages
 
