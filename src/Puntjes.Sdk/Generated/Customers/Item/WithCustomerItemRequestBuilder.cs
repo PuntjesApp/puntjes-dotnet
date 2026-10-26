@@ -3,7 +3,9 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Puntjes.Sdk.Generated.Customers.Item.ExternalId;
 using Puntjes.Sdk.Generated.Customers.Item.Ledger;
+using Puntjes.Sdk.Generated.Customers.Item.Merge;
 using Puntjes.Sdk.Generated.Customers.Item.Redemptions;
 using Puntjes.Sdk.Generated.Customers.Item.SendCard;
 using Puntjes.Sdk.Generated.Customers.Item.Transactions;
@@ -24,10 +26,20 @@ namespace Puntjes.Sdk.Generated.Customers.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithCustomerItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The externalId property</summary>
+        public global::Puntjes.Sdk.Generated.Customers.Item.ExternalId.ExternalIdRequestBuilder ExternalId
+        {
+            get => new global::Puntjes.Sdk.Generated.Customers.Item.ExternalId.ExternalIdRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The ledger property</summary>
         public global::Puntjes.Sdk.Generated.Customers.Item.Ledger.LedgerRequestBuilder Ledger
         {
             get => new global::Puntjes.Sdk.Generated.Customers.Item.Ledger.LedgerRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The merge property</summary>
+        public global::Puntjes.Sdk.Generated.Customers.Item.Merge.MergeRequestBuilder Merge
+        {
+            get => new global::Puntjes.Sdk.Generated.Customers.Item.Merge.MergeRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The redemptions property</summary>
         public global::Puntjes.Sdk.Generated.Customers.Item.Redemptions.RedemptionsRequestBuilder Redemptions

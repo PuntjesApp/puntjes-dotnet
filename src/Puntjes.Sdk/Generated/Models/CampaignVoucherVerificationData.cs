@@ -24,7 +24,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string ConsumedAt { get; set; }
 #endif
-        /// <summary>How much comes off, for a discount bon. Its `type` says which shape this is.</summary>
+        /// <summary>How much comes off, for a discount voucher. Its `type` says which shape this is.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Puntjes.Sdk.Generated.Models.CampaignVoucherVerificationData.CampaignVoucherVerificationData_discount? Discount { get; set; }
@@ -40,7 +40,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string Kind { get; set; }
 #endif
-        /// <summary>What to hand over, for a free-product bon.</summary>
+        /// <summary>What to hand over, for a free-product voucher.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData>? Products { get; set; }

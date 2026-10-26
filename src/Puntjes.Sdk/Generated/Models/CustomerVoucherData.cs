@@ -14,7 +14,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         /// <summary>Stores additional data not described in the OpenAPI description found when deserializing. Can be used for serialization as well.</summary>
         public IDictionary<string, object> AdditionalData { get; set; }
-        /// <summary>The branches that take the bon; null means every branch.</summary>
+        /// <summary>The branches that take the voucher; null means every branch.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>? Branches { get; set; }
@@ -24,7 +24,7 @@ namespace Puntjes.Sdk.Generated.Models
 #endif
         /// <summary>The campaign_id property</summary>
         public int? CampaignId { get; set; }
-        /// <summary>How much comes off, for a discount bon. Its `type` says which shape this is.</summary>
+        /// <summary>How much comes off, for a discount voucher. Its `type` says which shape this is.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public global::Puntjes.Sdk.Generated.Models.CustomerVoucherData.CustomerVoucherData_discount? Discount { get; set; }
@@ -40,7 +40,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string Kind { get; set; }
 #endif
-        /// <summary>What to hand over, for a free-product bon.</summary>
+        /// <summary>What to hand over, for a free-product voucher.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public List<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData>? Products { get; set; }
@@ -48,7 +48,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public List<global::Puntjes.Sdk.Generated.Models.VoucherGiftProductData> Products { get; set; }
 #endif
-        /// <summary>The last day the bon can be spent, or null when it does not run out.</summary>
+        /// <summary>The last day the voucher can be spent, or null when it does not run out.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ValidUntil { get; set; }

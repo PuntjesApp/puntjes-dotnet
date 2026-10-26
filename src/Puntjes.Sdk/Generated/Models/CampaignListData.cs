@@ -38,6 +38,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string CreatedAt { get; set; }
 #endif
+        /// <summary>Who the campaign is for. Empty means every customer.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>? CustomerGroups { get; set; }
+#nullable restore
+#else
+        public List<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData> CustomerGroups { get; set; }
+#endif
         /// <summary>The ends_at property</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -154,6 +162,7 @@ namespace Puntjes.Sdk.Generated.Models
                 { "branches", n => { Branches = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>(global::Puntjes.Sdk.Generated.Models.BranchReferenceData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "config", n => { Config = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.CampaignListData.CampaignListData_config>(global::Puntjes.Sdk.Generated.Models.CampaignListData.CampaignListData_config.CreateFromDiscriminatorValue); } },
                 { "created_at", n => { CreatedAt = n.GetStringValue(); } },
+                { "customer_groups", n => { CustomerGroups = n.GetCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>(global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData.CreateFromDiscriminatorValue)?.AsList(); } },
                 { "ends_at", n => { EndsAt = n.GetStringValue(); } },
                 { "family", n => { Family = n.GetStringValue(); } },
                 { "id", n => { Id = n.GetIntValue(); } },
@@ -180,6 +189,7 @@ namespace Puntjes.Sdk.Generated.Models
             writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.BranchReferenceData>("branches", Branches);
             writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.CampaignListData.CampaignListData_config>("config", Config);
             writer.WriteStringValue("created_at", CreatedAt);
+            writer.WriteCollectionOfObjectValues<global::Puntjes.Sdk.Generated.Models.CustomerGroupReferenceData>("customer_groups", CustomerGroups);
             writer.WriteStringValue("ends_at", EndsAt);
             writer.WriteStringValue("family", Family);
             writer.WriteIntValue("id", Id);

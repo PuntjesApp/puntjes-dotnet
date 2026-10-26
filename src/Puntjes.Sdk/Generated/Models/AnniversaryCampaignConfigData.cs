@@ -24,6 +24,14 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public List<int?> BranchIds { get; set; }
 #endif
+        /// <summary>The groups this campaign is for. Absent or empty means everyone.</summary>
+#if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+#nullable enable
+        public List<int?>? CustomerGroupIds { get; set; }
+#nullable restore
+#else
+        public List<int?> CustomerGroupIds { get; set; }
+#endif
         /// <summary>What the customer gets. Its `type` says which shape this is.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
@@ -63,6 +71,7 @@ namespace Puntjes.Sdk.Generated.Models
             {
                 { "backfill", n => { Backfill = n.GetBoolValue(); } },
                 { "branch_ids", n => { BranchIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
+                { "customer_group_ids", n => { CustomerGroupIds = n.GetCollectionOfPrimitiveValues<int?>()?.AsList(); } },
                 { "gift", n => { Gift = n.GetObjectValue<global::Puntjes.Sdk.Generated.Models.AnniversaryCampaignConfigData.AnniversaryCampaignConfigData_gift>(global::Puntjes.Sdk.Generated.Models.AnniversaryCampaignConfigData.AnniversaryCampaignConfigData_gift.CreateFromDiscriminatorValue); } },
                 { "type", n => { Type = n.GetEnumValue<global::Puntjes.Sdk.Generated.Models.AnniversaryCampaignConfigData_type>(); } },
                 { "years", n => { Years = n.GetIntValue(); } },
@@ -77,6 +86,7 @@ namespace Puntjes.Sdk.Generated.Models
             if(ReferenceEquals(writer, null)) throw new ArgumentNullException(nameof(writer));
             writer.WriteBoolValue("backfill", Backfill);
             writer.WriteCollectionOfPrimitiveValues<int?>("branch_ids", BranchIds);
+            writer.WriteCollectionOfPrimitiveValues<int?>("customer_group_ids", CustomerGroupIds);
             writer.WriteObjectValue<global::Puntjes.Sdk.Generated.Models.AnniversaryCampaignConfigData.AnniversaryCampaignConfigData_gift>("gift", Gift);
             writer.WriteEnumValue<global::Puntjes.Sdk.Generated.Models.AnniversaryCampaignConfigData_type>("type", Type);
             writer.WriteIntValue("years", Years);

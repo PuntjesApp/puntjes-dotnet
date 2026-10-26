@@ -16,7 +16,7 @@ namespace Puntjes.Sdk.Generated.Models
         public IDictionary<string, object> AdditionalData { get; set; }
         /// <summary>The product this refers to, or null when the gift named no catalogue product.</summary>
         public int? Id { get; set; }
-        /// <summary>The product name as it was when the bon was issued.</summary>
+        /// <summary>The product name as it was when the voucher was issued.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? Name { get; set; }
@@ -24,7 +24,7 @@ namespace Puntjes.Sdk.Generated.Models
 #else
         public string Name { get; set; }
 #endif
-        /// <summary>The item number when the bon was issued, or null when it had none.</summary>
+        /// <summary>The item number when the voucher was issued, or null when it had none.</summary>
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP3_1_OR_GREATER
 #nullable enable
         public string? ProductReference { get; set; }
