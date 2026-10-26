@@ -1,0 +1,147 @@
+{
+  "Customers/Item/Ledger/GetTypeQueryParameterType": {
+    "Earn": 0,
+    "Adjust": 1,
+    "Redeem": 2,
+    "Expire": 3
+  },
+  "Customers/Item/Redemptions/GetStatusQueryParameterType": {
+    "Valid": 0,
+    "Used": 1,
+    "Expired": 2,
+    "Cancelled": 3
+  },
+  "Customers/Item/WalletPass/GetPlatformQueryParameterType": {
+    "Apple": 0,
+    "Google": 1
+  },
+  "Models/AnniversaryCampaignConfigData_type": {
+    "Anniversary": 0
+  },
+  "Models/CreateCustomerData_locale": {
+    "Nl": 0,
+    "En": 1,
+    "OpenapiJsonNullSentinelValue2BF936000FE44250987AE5DDB203E464": 2
+  },
+  "Models/CreateIdentifierData_type": {
+    "Email": 0,
+    "Loyalty_card": 1
+  },
+  "Models/CreateProductData_status": {
+    "Active": 0,
+    "Inactive": 1,
+    "Archived": 2
+  },
+  "Models/CreateRewardFromProductData_status": {
+    "Active": 0,
+    "Inactive": 1
+  },
+  "Models/DateRangeRecurrenceData_type": {
+    "Date_range": 0
+  },
+  "Models/DaysOfWeekRecurrenceData_type": {
+    "Days_of_week": 0
+  },
+  "Models/DiscountGiftData_type": {
+    "Discount": 0
+  },
+  "Models/DiscountRedemptionData_discount_type": {
+    "Fixed_amount": 0,
+    "Percentage": 1
+  },
+  "Models/DiscountRedemptionData_type": {
+    "Discount": 0
+  },
+  "Models/FixedDiscountData_kind": {
+    "Fixed": 0
+  },
+  "Models/FixedDiscountData_type": {
+    "Fixed": 0
+  },
+  "Models/FreeProductGiftData_type": {
+    "Free_product": 0
+  },
+  "Models/FreeProductRedemptionData_type": {
+    "Free_product": 0
+  },
+  "Models/MomentCampaignConfigData_type": {
+    "Moment": 0
+  },
+  "Models/NthPurchaseCampaignConfigData_type": {
+    "Nth_purchase": 0
+  },
+  "Models/PercentageDiscountData_kind": {
+    "Percentage": 0
+  },
+  "Models/PercentageDiscountData_type": {
+    "Percentage": 0
+  },
+  "Models/PointsGiftData_type": {
+    "Points": 0
+  },
+  "Models/RewardCatalogItemData_discount_type": {
+    "Fixed_amount": 0,
+    "Percentage": 1,
+    "OpenapiJsonNullSentinelValue2BF936000FE44250987AE5DDB203E464": 2
+  },
+  "Models/SendLoyaltyCardRequestData_channel": {
+    "Email": 0,
+    "OpenapiJsonNullSentinelValue2BF936000FE44250987AE5DDB203E464": 1
+  },
+  "Models/SpecificDatesRecurrenceData_type": {
+    "Specific_dates": 0
+  },
+  "Models/TransactionCampaignConfigData_reward_type": {
+    "Multiplier": 0,
+    "Fixed_points": 1
+  },
+  "Models/TransactionCampaignConfigData_scope": {
+    "Whole": 0,
+    "Whole_purchase": 1,
+    "Products": 2
+  },
+  "Models/TransactionCampaignConfigData_type": {
+    "Transaction": 0
+  },
+  "Models/UpdateCustomerData_locale": {
+    "Nl": 0,
+    "En": 1,
+    "OpenapiJsonNullSentinelValue2BF936000FE44250987AE5DDB203E464": 2
+  },
+  "Models/UpdateProductData_status": {
+    "Active": 0,
+    "Inactive": 1,
+    "Archived": 2
+  },
+  "Models/UpsertProductData_status": {
+    "Active": 0,
+    "Inactive": 1,
+    "Archived": 2
+  },
+  "Models/VoucherFixedDiscountData_kind": {
+    "Fixed": 0
+  },
+  "Models/VoucherFixedDiscountData_type": {
+    "Fixed": 0
+  },
+  "Models/VoucherPercentageDiscountData_kind": {
+    "Percentage": 0
+  },
+  "Models/VoucherPercentageDiscountData_type": {
+    "Percentage": 0
+  },
+  "Models/WinBackCampaignConfigData_type": {
+    "Win_back": 0
+  },
+  "Products/GetStatusQueryParameterType": {
+    "Active": 0,
+    "Inactive": 1,
+    "Archived": 2
+  },
+  "Statistics/GetPeriodQueryParameterType": {
+    "Today": 0,
+    "Sevend": 1,
+    "ThreeZerod": 2,
+    "NineZerod": 3
+  }
+}

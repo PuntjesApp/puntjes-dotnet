@@ -9,15 +9,15 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "whole")]
         #pragma warning disable CS1591
-        Whole,
+        Whole = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "whole_purchase")]
         #pragma warning disable CS1591
-        Whole_purchase,
+        Whole_purchase = 1,
         #pragma warning restore CS1591
         [EnumMember(Value = "products")]
         #pragma warning disable CS1591
-        Products,
+        Products = 2,
         #pragma warning restore CS1591
     }
 }

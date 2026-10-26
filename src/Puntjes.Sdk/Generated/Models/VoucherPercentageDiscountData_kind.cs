@@ -10,7 +10,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "percentage")]
         #pragma warning disable CS1591
-        Percentage,
+        Percentage = 0,
         #pragma warning restore CS1591
     }
 }

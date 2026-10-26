@@ -15,6 +15,7 @@ switch (args)
             File.WriteAllText(Path.Combine(outDir, "Errors", "ErrorCode.cs"), SpecCodegen.RenderErrorCode(codes));
             File.WriteAllText(Path.Combine(outDir, "Security", "PublicOperations.cs"), SpecCodegen.RenderPublicOperations(SpecCodegen.PublicOperations(spec)));
             OptionalBodies.Apply(spec, outDir);
+            EnumNumbers.Apply(outDir, Path.Combine(Path.GetDirectoryName(numbersPath)!, "enum-numbers.json"));
         }
 
         return 0;

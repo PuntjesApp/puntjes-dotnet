@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "free_product")]
         #pragma warning disable CS1591
-        Free_product,
+        Free_product = 0,
         #pragma warning restore CS1591
     }
 }

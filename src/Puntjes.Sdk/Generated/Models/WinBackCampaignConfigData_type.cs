@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "win_back")]
         #pragma warning disable CS1591
-        Win_back,
+        Win_back = 0,
         #pragma warning restore CS1591
     }
 }

@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "fixed")]
         #pragma warning disable CS1591
-        Fixed,
+        Fixed = 0,
         #pragma warning restore CS1591
     }
 }

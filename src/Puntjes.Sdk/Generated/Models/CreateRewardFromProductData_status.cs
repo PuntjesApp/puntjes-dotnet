@@ -10,11 +10,11 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "active")]
         #pragma warning disable CS1591
-        Active,
+        Active = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "inactive")]
         #pragma warning disable CS1591
-        Inactive,
+        Inactive = 1,
         #pragma warning restore CS1591
     }
 }

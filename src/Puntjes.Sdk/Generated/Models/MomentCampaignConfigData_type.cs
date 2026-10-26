@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "moment")]
         #pragma warning disable CS1591
-        Moment,
+        Moment = 0,
         #pragma warning restore CS1591
     }
 }

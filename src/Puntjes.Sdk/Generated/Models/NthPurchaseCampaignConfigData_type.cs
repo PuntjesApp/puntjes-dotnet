@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "nth_purchase")]
         #pragma warning disable CS1591
-        Nth_purchase,
+        Nth_purchase = 0,
         #pragma warning restore CS1591
     }
 }

@@ -10,11 +10,11 @@ namespace Puntjes.Sdk.Generated.Customers.Item.WalletPass
     {
         [EnumMember(Value = "apple")]
         #pragma warning disable CS1591
-        Apple,
+        Apple = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "google")]
         #pragma warning disable CS1591
-        Google,
+        Google = 1,
         #pragma warning restore CS1591
     }
 }

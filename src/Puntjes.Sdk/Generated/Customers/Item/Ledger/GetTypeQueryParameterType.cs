@@ -10,19 +10,19 @@ namespace Puntjes.Sdk.Generated.Customers.Item.Ledger
     {
         [EnumMember(Value = "earn")]
         #pragma warning disable CS1591
-        Earn,
+        Earn = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "adjust")]
         #pragma warning disable CS1591
-        Adjust,
+        Adjust = 1,
         #pragma warning restore CS1591
         [EnumMember(Value = "redeem")]
         #pragma warning disable CS1591
-        Redeem,
+        Redeem = 2,
         #pragma warning restore CS1591
         [EnumMember(Value = "expire")]
         #pragma warning disable CS1591
-        Expire,
+        Expire = 3,
         #pragma warning restore CS1591
     }
 }

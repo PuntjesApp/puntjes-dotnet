@@ -9,11 +9,11 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "multiplier")]
         #pragma warning disable CS1591
-        Multiplier,
+        Multiplier = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "fixed_points")]
         #pragma warning disable CS1591
-        Fixed_points,
+        Fixed_points = 1,
         #pragma warning restore CS1591
     }
 }

@@ -10,11 +10,11 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "email")]
         #pragma warning disable CS1591
-        Email,
+        Email = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "loyalty_card")]
         #pragma warning disable CS1591
-        Loyalty_card,
+        Loyalty_card = 1,
         #pragma warning restore CS1591
     }
 }
