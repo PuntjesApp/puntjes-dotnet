@@ -2,9 +2,21 @@ name: Regenerate
 
 # PuntjesApp/Puntjes sends spec-published after a release publishes a new api.json to puntjes-openapi. This turns it
 # into a PR with the regenerated client. A minor or patch PR merges itself when CI is green; a major one waits.
+# A person can also start it by hand for a tag that is already published, as after a dispatch that failed.
 on:
   repository_dispatch:
     types: [spec-published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: A puntjes-openapi tag that is already published, as vX.Y.Z
+        type: string
+        required: true
+      level:
+        description: How far the spec moved from the one before it
+        type: choice
+        options: [major, minor, patch]
+        required: true
 
 permissions: {}
 
@@ -40,9 +52,9 @@ jobs:
         id: plan
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
-          TAG: ${{ github.event.client_payload.tag }}
-          LEVEL: ${{ github.event.client_payload.level }}
-          URL: ${{ github.event.client_payload.url }}
+          TAG: ${{ github.event.client_payload.tag || inputs.tag }}
+          LEVEL: ${{ github.event.client_payload.level || inputs.level }}
+          URL: ${{ github.event.client_payload.url || format('https://raw.githubusercontent.com/PuntjesApp/puntjes-openapi/{0}/api.json', inputs.tag) }}
         run: |
           open=$(gh pr list --repo "$GITHUB_REPOSITORY" --state open --limit 200 --json headRefName,title \
             --jq '.[] | select(.headRefName | startswith("regenerate/")) | "\(.headRefName) \(.title)"')
@@ -74,8 +86,8 @@ jobs:
         if: steps.state.outputs.stage == 'fresh'
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
-          TAG: ${{ github.event.client_payload.tag }}
-          URL: ${{ github.event.client_payload.url }}
+          TAG: ${{ github.event.client_payload.tag || inputs.tag }}
+          URL: ${{ github.event.client_payload.url || format('https://raw.githubusercontent.com/PuntjesApp/puntjes-openapi/{0}/api.json', inputs.tag) }}
           BRANCH: ${{ steps.plan.outputs.branch }}
           TYPE: ${{ steps.plan.outputs.commit_type }}
         run: |
@@ -108,7 +120,7 @@ jobs:
         if: steps.state.outputs.stage == 'fresh' || steps.state.outputs.stage == 'resume'
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
-          TAG: ${{ github.event.client_payload.tag }}
+          TAG: ${{ github.event.client_payload.tag || inputs.tag }}
           BRANCH: ${{ steps.plan.outputs.branch }}
           TYPE: ${{ steps.plan.outputs.commit_type }}
           AUTO_MERGE: ${{ steps.plan.outputs.auto_merge }}
@@ -126,7 +138,7 @@ jobs:
         if: steps.plan.outputs.skip == 'false' && steps.plan.outputs.close != ''
         env:
           GH_TOKEN: ${{ steps.app.outputs.token }}
-          TAG: ${{ github.event.client_payload.tag }}
+          TAG: ${{ github.event.client_payload.tag || inputs.tag }}
           CLOSE: ${{ steps.plan.outputs.close }}
         run: |
           for branch in $CLOSE; do
@@ -149,7 +161,7 @@ jobs:
         if: failure()
         env:
           GH_TOKEN: ${{ github.token }}
-          TAG: ${{ github.event.client_payload.tag }}
+          TAG: ${{ github.event.client_payload.tag || inputs.tag }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
           body="$RUNNER_TEMP/regenerate-failed.md"
