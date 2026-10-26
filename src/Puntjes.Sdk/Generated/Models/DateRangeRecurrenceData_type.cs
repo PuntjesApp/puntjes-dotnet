@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "date_range")]
         #pragma warning disable CS1591
-        Date_range,
+        Date_range = 0,
         #pragma warning restore CS1591
     }
 }

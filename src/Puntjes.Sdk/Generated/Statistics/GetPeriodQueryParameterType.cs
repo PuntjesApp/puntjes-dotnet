@@ -10,19 +10,19 @@ namespace Puntjes.Sdk.Generated.Statistics
     {
         [EnumMember(Value = "today")]
         #pragma warning disable CS1591
-        Today,
+        Today = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "7d")]
         #pragma warning disable CS1591
-        Sevend,
+        Sevend = 1,
         #pragma warning restore CS1591
         [EnumMember(Value = "30d")]
         #pragma warning disable CS1591
-        ThreeZerod,
+        ThreeZerod = 2,
         #pragma warning restore CS1591
         [EnumMember(Value = "90d")]
         #pragma warning disable CS1591
-        NineZerod,
+        NineZerod = 3,
         #pragma warning restore CS1591
     }
 }

@@ -10,19 +10,19 @@ namespace Puntjes.Sdk.Generated.Customers.Item.Redemptions
     {
         [EnumMember(Value = "valid")]
         #pragma warning disable CS1591
-        Valid,
+        Valid = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "used")]
         #pragma warning disable CS1591
-        Used,
+        Used = 1,
         #pragma warning restore CS1591
         [EnumMember(Value = "expired")]
         #pragma warning disable CS1591
-        Expired,
+        Expired = 2,
         #pragma warning restore CS1591
         [EnumMember(Value = "cancelled")]
         #pragma warning disable CS1591
-        Cancelled,
+        Cancelled = 3,
         #pragma warning restore CS1591
     }
 }

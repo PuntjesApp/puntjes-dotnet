@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "discount")]
         #pragma warning disable CS1591
-        Discount,
+        Discount = 0,
         #pragma warning restore CS1591
     }
 }

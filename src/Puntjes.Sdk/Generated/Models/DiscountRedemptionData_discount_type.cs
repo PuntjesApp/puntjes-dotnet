@@ -9,11 +9,11 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "fixed_amount")]
         #pragma warning disable CS1591
-        Fixed_amount,
+        Fixed_amount = 0,
         #pragma warning restore CS1591
         [EnumMember(Value = "percentage")]
         #pragma warning disable CS1591
-        Percentage,
+        Percentage = 1,
         #pragma warning restore CS1591
     }
 }

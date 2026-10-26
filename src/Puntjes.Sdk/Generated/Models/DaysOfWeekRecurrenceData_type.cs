@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "days_of_week")]
         #pragma warning disable CS1591
-        Days_of_week,
+        Days_of_week = 0,
         #pragma warning restore CS1591
     }
 }

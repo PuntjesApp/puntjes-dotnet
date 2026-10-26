@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "transaction")]
         #pragma warning disable CS1591
-        Transaction,
+        Transaction = 0,
         #pragma warning restore CS1591
     }
 }

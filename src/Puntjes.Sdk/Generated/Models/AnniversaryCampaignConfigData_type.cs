@@ -9,7 +9,7 @@ namespace Puntjes.Sdk.Generated.Models
     {
         [EnumMember(Value = "anniversary")]
         #pragma warning disable CS1591
-        Anniversary,
+        Anniversary = 0,
         #pragma warning restore CS1591
     }
 }
