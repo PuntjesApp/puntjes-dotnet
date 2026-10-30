@@ -6,9 +6,11 @@ using Microsoft.Kiota.Serialization.Json;
 using Microsoft.Kiota.Serialization.Text;
 using Puntjes.Sdk.Generated.Branches;
 using Puntjes.Sdk.Generated.Campaigns;
+using Puntjes.Sdk.Generated.Client;
 using Puntjes.Sdk.Generated.Customers;
 using Puntjes.Sdk.Generated.Health;
 using Puntjes.Sdk.Generated.Me;
+using Puntjes.Sdk.Generated.Partner;
 using Puntjes.Sdk.Generated.Products;
 using Puntjes.Sdk.Generated.Redemptions;
 using Puntjes.Sdk.Generated.Rewards;
@@ -37,6 +39,11 @@ namespace Puntjes.Sdk.Generated
         {
             get => new global::Puntjes.Sdk.Generated.Campaigns.CampaignsRequestBuilder(PathParameters, RequestAdapter);
         }
+        /// <summary>The client property</summary>
+        public global::Puntjes.Sdk.Generated.Client.ClientRequestBuilder Client
+        {
+            get => new global::Puntjes.Sdk.Generated.Client.ClientRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The customers property</summary>
         public global::Puntjes.Sdk.Generated.Customers.CustomersRequestBuilder Customers
         {
@@ -51,6 +58,11 @@ namespace Puntjes.Sdk.Generated
         public global::Puntjes.Sdk.Generated.Me.MeRequestBuilder Me
         {
             get => new global::Puntjes.Sdk.Generated.Me.MeRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The partner property</summary>
+        public global::Puntjes.Sdk.Generated.Partner.PartnerRequestBuilder Partner
+        {
+            get => new global::Puntjes.Sdk.Generated.Partner.PartnerRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The products property</summary>
         public global::Puntjes.Sdk.Generated.Products.ProductsRequestBuilder Products
