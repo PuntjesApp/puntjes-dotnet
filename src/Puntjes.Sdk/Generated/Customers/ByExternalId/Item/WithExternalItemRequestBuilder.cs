@@ -3,6 +3,7 @@
 using Microsoft.Kiota.Abstractions.Extensions;
 using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
+using Puntjes.Sdk.Generated.Customers.ByExternalId.Item.LoyaltyCards;
 using Puntjes.Sdk.Generated.Customers.ByExternalId.Item.SendCard;
 using Puntjes.Sdk.Generated.Models;
 using System.Collections.Generic;
@@ -18,6 +19,11 @@ namespace Puntjes.Sdk.Generated.Customers.ByExternalId.Item
     [global::System.CodeDom.Compiler.GeneratedCode("Kiota", "1.0.0")]
     public partial class WithExternalItemRequestBuilder : BaseRequestBuilder
     {
+        /// <summary>The loyaltyCards property</summary>
+        public global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.LoyaltyCards.LoyaltyCardsRequestBuilder LoyaltyCards
+        {
+            get => new global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.LoyaltyCards.LoyaltyCardsRequestBuilder(PathParameters, RequestAdapter);
+        }
         /// <summary>The sendCard property</summary>
         public global::Puntjes.Sdk.Generated.Customers.ByExternalId.Item.SendCard.SendCardRequestBuilder SendCard
         {

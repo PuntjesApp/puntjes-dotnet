@@ -2,7 +2,7 @@
     "openapi": "3.1.2",
     "info": {
         "title": "Puntjes",
-        "version": "2.4.1",
+        "version": "2.5.0",
         "description": "Puntjes Loyalty API"
     },
     "servers": [
@@ -741,6 +741,206 @@
                     {
                         "code": "CUSTOMER_NOT_FOUND",
                         "status": 404
+                    }
+                ]
+            }
+        },
+        "/customers/by-external-id/{externalId}/loyalty-cards": {
+            "post": {
+                "operationId": "addLoyaltyCardByExternalId",
+                "tags": [
+                    "Customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "externalId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddLoyaltyCardData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/CustomerDetailData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/Error409"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "CUSTOMER_DEACTIVATED",
+                        "status": 422
+                    },
+                    {
+                        "code": "EXTERNAL_ID_NOT_FOUND",
+                        "status": 404
+                    },
+                    {
+                        "code": "IDENTIFIER_DUPLICATE",
+                        "status": 409
+                    },
+                    {
+                        "code": "LOYALTY_CARD_LIMIT_REACHED",
+                        "status": 422
+                    },
+                    {
+                        "code": "LOYALTY_CARD_NOT_FOUND",
+                        "status": 422
+                    }
+                ]
+            }
+        },
+        "/customers/{customer}/loyalty-cards": {
+            "post": {
+                "operationId": "addLoyaltyCard",
+                "tags": [
+                    "Customers"
+                ],
+                "parameters": [
+                    {
+                        "name": "customer",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": [
+                                "string",
+                                "null"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/AddLoyaltyCardData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/CustomerDetailData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "409": {
+                        "$ref": "#/components/responses/Error409"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "CUSTOMER_DEACTIVATED",
+                        "status": 422
+                    },
+                    {
+                        "code": "CUSTOMER_NOT_FOUND",
+                        "status": 404
+                    },
+                    {
+                        "code": "IDENTIFIER_DUPLICATE",
+                        "status": 409
+                    },
+                    {
+                        "code": "LOYALTY_CARD_LIMIT_REACHED",
+                        "status": 422
+                    },
+                    {
+                        "code": "LOYALTY_CARD_NOT_FOUND",
+                        "status": 422
                     }
                 ]
             }
@@ -3300,6 +3500,26 @@
             }
         },
         "schemas": {
+            "AddLoyaltyCardData": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string",
+                        "description": "The code of a card without a customer on your card list. The setting for new codes does not apply."
+                    },
+                    "replaces": {
+                        "type": [
+                            "string",
+                            "null"
+                        ],
+                        "description": "The code of the card the customer gives back. Only an active card of this customer is switched off."
+                    }
+                },
+                "required": [
+                    "code"
+                ],
+                "title": "AddLoyaltyCardData"
+            },
             "AdjustWalletApiData": {
                 "type": "object",
                 "properties": {
