@@ -5,6 +5,7 @@ using Microsoft.Kiota.Abstractions.Serialization;
 using Microsoft.Kiota.Abstractions;
 using Puntjes.Sdk.Generated.Customers.Item.ExternalId;
 using Puntjes.Sdk.Generated.Customers.Item.Ledger;
+using Puntjes.Sdk.Generated.Customers.Item.LoyaltyCards;
 using Puntjes.Sdk.Generated.Customers.Item.Merge;
 using Puntjes.Sdk.Generated.Customers.Item.Redemptions;
 using Puntjes.Sdk.Generated.Customers.Item.SendCard;
@@ -35,6 +36,11 @@ namespace Puntjes.Sdk.Generated.Customers.Item
         public global::Puntjes.Sdk.Generated.Customers.Item.Ledger.LedgerRequestBuilder Ledger
         {
             get => new global::Puntjes.Sdk.Generated.Customers.Item.Ledger.LedgerRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The loyaltyCards property</summary>
+        public global::Puntjes.Sdk.Generated.Customers.Item.LoyaltyCards.LoyaltyCardsRequestBuilder LoyaltyCards
+        {
+            get => new global::Puntjes.Sdk.Generated.Customers.Item.LoyaltyCards.LoyaltyCardsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The merge property</summary>
         public global::Puntjes.Sdk.Generated.Customers.Item.Merge.MergeRequestBuilder Merge
