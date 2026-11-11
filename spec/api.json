@@ -2,7 +2,7 @@
     "openapi": "3.1.2",
     "info": {
         "title": "Puntjes",
-        "version": "2.5.0",
+        "version": "2.6.0",
         "description": "Puntjes Loyalty API"
     },
     "servers": [
@@ -4415,7 +4415,10 @@
                 "type": "object",
                 "properties": {
                     "identifier": {
-                        "type": "string"
+                        "type": [
+                            "string",
+                            "null"
+                        ]
                     },
                     "idempotency_key": {
                         "type": "string"
@@ -4450,7 +4453,6 @@
                     }
                 },
                 "required": [
-                    "identifier",
                     "idempotency_key",
                     "total_amount"
                 ],
@@ -6879,7 +6881,10 @@
                         "type": "integer"
                     },
                     "customer_id": {
-                        "type": "integer"
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
                     },
                     "idempotency_key": {
                         "type": "string"
