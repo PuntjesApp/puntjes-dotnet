@@ -8,6 +8,7 @@ using Puntjes.Sdk.Generated.Branches;
 using Puntjes.Sdk.Generated.Campaigns;
 using Puntjes.Sdk.Generated.Client;
 using Puntjes.Sdk.Generated.Customers;
+using Puntjes.Sdk.Generated.GiftCards;
 using Puntjes.Sdk.Generated.Health;
 using Puntjes.Sdk.Generated.Me;
 using Puntjes.Sdk.Generated.Partner;
@@ -48,6 +49,11 @@ namespace Puntjes.Sdk.Generated
         public global::Puntjes.Sdk.Generated.Customers.CustomersRequestBuilder Customers
         {
             get => new global::Puntjes.Sdk.Generated.Customers.CustomersRequestBuilder(PathParameters, RequestAdapter);
+        }
+        /// <summary>The giftCards property</summary>
+        public global::Puntjes.Sdk.Generated.GiftCards.GiftCardsRequestBuilder GiftCards
+        {
+            get => new global::Puntjes.Sdk.Generated.GiftCards.GiftCardsRequestBuilder(PathParameters, RequestAdapter);
         }
         /// <summary>The health property</summary>
         public global::Puntjes.Sdk.Generated.Health.HealthRequestBuilder Health
