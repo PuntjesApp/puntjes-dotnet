@@ -2,7 +2,7 @@
     "openapi": "3.1.2",
     "info": {
         "title": "Puntjes",
-        "version": "2.6.0",
+        "version": "2.7.0",
         "description": "Puntjes Loyalty API"
     },
     "servers": [
@@ -46,6 +46,9 @@
         },
         {
             "name": "Partner"
+        },
+        {
+            "name": "Gift cards"
         },
         {
             "name": "Health"
@@ -3474,6 +3477,342 @@
                     }
                 },
                 "security": []
+            }
+        },
+        "/gift-cards/lookup": {
+            "post": {
+                "operationId": "lookupGiftCard",
+                "tags": [
+                    "Gift cards"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LookupGiftCardApiData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/GiftCardApiData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "FEATURE_NOT_ENABLED",
+                        "status": 403
+                    },
+                    {
+                        "code": "GIFT_CARD_NOT_FOUND",
+                        "status": 404
+                    }
+                ]
+            }
+        },
+        "/gift-cards/redeem": {
+            "post": {
+                "operationId": "redeemGiftCard",
+                "tags": [
+                    "Gift cards"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/RedeemGiftCardApiData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/GiftCardApiData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "BRANCH_INACTIVE",
+                        "status": 422
+                    },
+                    {
+                        "code": "BRANCH_NOT_FOUND",
+                        "status": 422
+                    },
+                    {
+                        "code": "FEATURE_NOT_ENABLED",
+                        "status": 403
+                    },
+                    {
+                        "code": "GIFT_CARD_AMOUNT_LEFT_TOO_LOW",
+                        "status": 422
+                    },
+                    {
+                        "code": "GIFT_CARD_CANCELLED",
+                        "status": 422
+                    },
+                    {
+                        "code": "GIFT_CARD_ENDED",
+                        "status": 422
+                    },
+                    {
+                        "code": "GIFT_CARD_NOT_FOUND",
+                        "status": 404
+                    },
+                    {
+                        "code": "IDEMPOTENCY_KEY_CONFLICT",
+                        "status": 422
+                    }
+                ]
+            }
+        },
+        "/gift-cards/load": {
+            "post": {
+                "operationId": "loadGiftCard",
+                "tags": [
+                    "Gift cards"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoadGiftCardApiData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/GiftCardApiData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "BRANCH_INACTIVE",
+                        "status": 422
+                    },
+                    {
+                        "code": "BRANCH_NOT_FOUND",
+                        "status": 422
+                    },
+                    {
+                        "code": "FEATURE_NOT_ENABLED",
+                        "status": 403
+                    },
+                    {
+                        "code": "GIFT_CARD_ALREADY_LOADED",
+                        "status": 422
+                    },
+                    {
+                        "code": "GIFT_CARD_AMOUNT_OUT_OF_BOUNDS",
+                        "status": 422
+                    },
+                    {
+                        "code": "GIFT_CARD_NOT_FOUND",
+                        "status": 404
+                    },
+                    {
+                        "code": "IDEMPOTENCY_KEY_CONFLICT",
+                        "status": 422
+                    }
+                ]
+            }
+        },
+        "/gift-cards/load/undo": {
+            "post": {
+                "operationId": "undoGiftCardLoad",
+                "tags": [
+                    "Gift cards"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UndoGiftCardLoadApiData"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/GiftCardApiData"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/Error400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/Error401"
+                    },
+                    "403": {
+                        "$ref": "#/components/responses/Error403"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/Error404"
+                    },
+                    "415": {
+                        "$ref": "#/components/responses/Error415"
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/Error422"
+                    },
+                    "429": {
+                        "$ref": "#/components/responses/Error429"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/Error500"
+                    }
+                },
+                "x-error-codes": [
+                    {
+                        "code": "FEATURE_NOT_ENABLED",
+                        "status": 403
+                    },
+                    {
+                        "code": "GIFT_CARD_NOT_FOUND",
+                        "status": 404
+                    },
+                    {
+                        "code": "GIFT_CARD_UNDO_NOT_ALLOWED",
+                        "status": 422
+                    }
+                ]
             }
         }
     },
@@ -7477,6 +7816,143 @@
                     "gift"
                 ],
                 "title": "WinBackCampaignConfigData"
+            },
+            "GiftCardApiData": {
+                "type": "object",
+                "properties": {
+                    "code_last4": {
+                        "type": "string",
+                        "description": "The last 4 characters of the code, for the receipt."
+                    },
+                    "amount_left_cents": {
+                        "type": "integer",
+                        "description": "What the gift card still holds, in cents."
+                    },
+                    "ends_on": {
+                        "type": "string",
+                        "description": "The last day the gift card works (YYYY-MM-DD, Brussels time)."
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/GiftCardStatus"
+                    },
+                    "vat_kind": {
+                        "$ref": "#/components/schemas/GiftCardVatKind"
+                    }
+                },
+                "required": [
+                    "code_last4",
+                    "amount_left_cents",
+                    "ends_on",
+                    "status",
+                    "vat_kind"
+                ],
+                "title": "GiftCardApiData"
+            },
+            "GiftCardStatus": {
+                "type": "string",
+                "description": "Whether a gift card can still be used: cancelled wins over used up, used up over ended, otherwise open.\n",
+                "enum": [
+                    "open",
+                    "used_up",
+                    "ended",
+                    "cancelled"
+                ],
+                "title": "GiftCardStatus"
+            },
+            "LookupGiftCardApiData": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "code"
+                ],
+                "title": "LookupGiftCardApiData"
+            },
+            "RedeemGiftCardApiData": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "amount_cents": {
+                        "type": "integer"
+                    },
+                    "idempotency_key": {
+                        "type": "string"
+                    },
+                    "branch": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "code",
+                    "amount_cents",
+                    "idempotency_key"
+                ],
+                "title": "RedeemGiftCardApiData"
+            },
+            "GiftCardVatKind": {
+                "type": "string",
+                "description": "Whether the shop knows at the sale what the gift card buys, which decides the VAT moment.\n",
+                "enum": [
+                    "single_purpose",
+                    "multi_purpose"
+                ],
+                "title": "GiftCardVatKind"
+            },
+            "LoadGiftCardApiData": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "amount_cents": {
+                        "type": "integer"
+                    },
+                    "idempotency_key": {
+                        "type": "string"
+                    },
+                    "ends_on": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "branch": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    }
+                },
+                "required": [
+                    "code",
+                    "amount_cents",
+                    "idempotency_key"
+                ],
+                "title": "LoadGiftCardApiData"
+            },
+            "UndoGiftCardLoadApiData": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "idempotency_key": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "code",
+                    "idempotency_key"
+                ],
+                "title": "UndoGiftCardLoadApiData"
             }
         },
         "responses": {

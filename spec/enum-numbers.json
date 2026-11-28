@@ -64,6 +64,16 @@
   "Models/FreeProductRedemptionData_type": {
     "Free_product": 0
   },
+  "Models/GiftCardStatus": {
+    "Open": 0,
+    "Used_up": 1,
+    "Ended": 2,
+    "Cancelled": 3
+  },
+  "Models/GiftCardVatKind": {
+    "Single_purpose": 0,
+    "Multi_purpose": 1
+  },
   "Models/MomentCampaignConfigData_type": {
     "Moment": 0
   },
